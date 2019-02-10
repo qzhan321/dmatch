@@ -105,11 +105,11 @@ sample2&lt;-<span class="kw">read.csv</span>(<span class="kw">gzfile</span>(<spa
 <span class="kw">colnames</span>(sample1)&lt;-<span class="kw">paste</span>(<span class="st">"sample1"</span>, <span class="kw">colnames</span>(sample1), <span class="dt">sep =</span> <span class="st">"_"</span>)
 <span class="kw">colnames</span>(sample2)&lt;-<span class="kw">paste</span>(<span class="st">"sample2"</span>, <span class="kw">colnames</span>(sample2), <span class="dt">sep =</span> <span class="st">"_"</span>)</code></pre></div>
 <p>We use SVD to perform PCA for better computational efficiency.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCA&lt;-<span class="kw"><a href="../reference/fastSVD.html">fastSVD</a></span>(<span class="kw">list</span>(sample1,sample2))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCA&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/fastSVD">fastSVD</a></span>(<span class="kw">list</span>(sample1,sample2))</code></pre></div>
 <p>Inspect the PC plot of those samples:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCAplot&lt;-<span class="kw"><a href="../reference/PCAPlot.html">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="st">"pc_plot.png"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCAplot&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/PCAPlot">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="st">"pc_plot.png"</span>)</code></pre></div>
 <p>Create a dmatch class object, which contains slots to store multiple types of information for the samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,cell.line)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/projection_to_reference_panel">projection_to_reference_panel</a></span>(samples,cell.line)</code></pre></div>
 </div>
 <div id="identifying-nearest-neighbors-across-batches" class="section level1">
 <h1 class="hasAnchor">
@@ -121,12 +121,12 @@ sample2&lt;-<span class="kw">read.csv</span>(<span class="kw">gzfile</span>(<spa
 ##the above code will return the path of the desired reference panel, then use the following code to load the desired reference panel.
 <span class="kw">load</span>(path)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##project the cells in the samples to the reference panel
-samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,cell.line)
+samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/projection_to_reference_panel">projection_to_reference_panel</a></span>(samples,cell.line)
 ##visualize the projection result
-samples&lt;-<span class="kw"><a href="../reference/projection_visualization.html">projection_visualization</a></span>(samples,<span class="dt">filename =</span> <span class="st">"projection.png"</span>)</code></pre></div>
+samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/projection_visualization">projection_visualization</a></span>(samples,<span class="dt">filename =</span> <span class="st">"projection.png"</span>)</code></pre></div>
 <p>We then cut the clusters into separate cell types and select some clusters to study batch effects based on the number of cells in those clusters and the shapiro test results of those clusters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##there are three major cell types in the visualization plot of the projection result 
-samples&lt;-<span class="kw"><a href="../reference/cut_groups.html">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">3</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)
+samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/cut_groups">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">3</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)
 ##select clusters which have enough cells and which have low transformed shapiro pvalue
 samples&lt;-<span class="kw">select_groups</span>(samples, <span class="dt">quantile =</span> <span class="fl">0.95</span>)</code></pre></div>
 </div>
@@ -134,11 +134,11 @@ samples&lt;-<span class="kw">select_groups</span>(samples, <span class="dt">quan
 <h1 class="hasAnchor">
 <a href="#batch-effects-correction" class="anchor"></a>Batch effects correction</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch effects correction
-samples&lt;-<span class="kw"><a href="../reference/run_alignment_by_2D.html">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">quantile =</span> <span class="fl">0.95</span>)
+samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/run_alignment_by_2D">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">quantile =</span> <span class="fl">0.95</span>)
 ##visualize the corrected data, selecting PC3 and PC4, and cell cluster1 and cell cluster 2 
-<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">4</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/plot_corrected">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">4</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</code></pre></div>
 <p>Once we are satisfied with the results of batch effects correction in the previous step, we now move the low-dimensional data in PC space to the original high-dimensional space.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="../reference/move_back_to_original_space.html">move_back_to_original_space</a></span>(samples)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/move_back_to_original_space">move_back_to_original_space</a></span>(samples)</code></pre></div>
 </div>
   </div>
 
