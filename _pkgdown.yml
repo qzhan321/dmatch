@@ -1,0 +1,22 @@
+navbar:
+  structure:
+    left:
+    - home
+    - Functions
+    - Tutorial
+
+    right: github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Functions
+      href: reference/index.html
+    intro:
+      text: Tutorial
+      href: articles/dmatch.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/qzhan321/dmatch
+      

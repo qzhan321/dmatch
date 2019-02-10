@@ -1,0 +1,19 @@
+Package: dmatch
+Type: Package
+Title: dmatch: a batch-effects-removing method for single cell RNA
+        sequencing data
+Version: 0.1.8
+Authors@R: person("Mengjie Chen", role = c("aut", "cre"), email = "mengjiechen@uchicago.edu")
+Maintainer: Mengjie Chen <mengjiechen@uchicago.edu>
+Description: Implementation of the dmatch algorithm for single cell integration. Package includes functions to integrate single cell RNA sequencing data and help assess performance of the integration. 
+License: GPL (>=2)
+Encoding: UTF-8
+LazyData: true
+LinkingTo: Rcpp, RcppArmadillo, mvtnorm, RcppEigen
+Imports: Rcpp, RcppArmadillo, mvtnorm, irlba, RcppEigen
+NeedsCompilation: yes
+Packaged: 2019-02-09 20:45:35 UTC; qizhan
+RoxygenNote: 6.1.0
+Author: Mengjie Chen [aut, cre]
+URL: https://github.com/qzhan321/dmatch
+BugReports: https://github.com/qzhan321/dmatch/issues

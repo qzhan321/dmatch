@@ -1,0 +1,104 @@
+---
+title: "An introduction to the dmatch package"
+author: "Qi Zhan"
+date: "`r paste0(format(Sys.time(), '%d %b %Y'))`"
+output: html_document
+---
+
+
+# Introduction
+  
+The dmatch algorithm allows batch effect removal for single cell RNA-Seq data. It comprises of three key components including: 
+  
+  1.  Dimension reduction; 
+  2.  Identification of nearest neighbore across batches; and 
+  3.  The adjustment of the datasets with unwanted variation using Gaussian kernel density estimation, KL-divergence and gradient desent algorithm. 
+  
+  
+The purpose of this tutorial is to illustrate some uses of `dmatch` and explain its key components. 
+  
+# Loading Packages and Data
+  
+We will load the `dmatch` package. 
+  
+```{r eval=F}
+suppressPackageStartupMessages({
+  library(dmatch)
+})
+```
+  
+
+We selected HC1 PBMC sample and SLE BMMC sample for illustration in this tutorial. 
+  
+```{r eval=F}
+sample1<-read.csv(gzfile("HC1_BMMC.barcode_gene.csv.names.gz"), row.names = 1, header = T)
+sample2<-read.csv(gzfile("SLE_BMMC.barcode_gene.csv.names.gz"), row.names = 1, header = T)
+colnames(sample1)<-paste("sample1", colnames(sample1), sep = "_")
+colnames(sample2)<-paste("sample2", colnames(sample2), sep = "_")
+```
+
+
+We use SVD to perform PCA for better computational efficiency.
+
+```{r eval=F}
+PCA<-fastSVD(list(sample1,sample2))
+```
+
+Inspect the PC plot of those samples:
+```{r eval=F}
+PCAplot<-PCAPlot(PCA = PCA, PCs.to.plot = c(1,2), filename = "pc_plot.png")
+```
+
+Create a dmatch class object, which contains slots to store multiple types of information for the samples.
+```{r eval=F}
+samples<-projection_to_reference_panel(samples,cell.line)
+```
+
+
+# Identifying nearest neighbors across batches
+
+We introduce external information, a reference panel, which is composed of 95 primary cell lines and ~5000 genes. The reference panel is a 44 meta-analysis of a large number of publicly available microarray datasets. 
+
+Those cell types in the reference panel do not necessarily represent the true biological cell types. It contains detailed information to identify separate clusters in the experimental datasets. Cells from different batches which are identified as the same cell type in the reference panel are the nearest neighbors across batches.
+
+Load the reference panel
+We provided two versions of the reference panel which use different gene naming systems: cell.line.to.ensl.ID and cell_atlas_ref_panel
+```{r eval=F}
+system.file("extdata", "cell.line.to.ensl.ID", package = "dmatch")
+##the above code will return the path of the desired reference panel, then use the following code to load the desired reference panel.
+load(path)
+```
+
+```{r eval=F}
+##project the cells in the samples to the reference panel
+samples<-projection_to_reference_panel(samples,cell.line)
+##visualize the projection result
+samples<-projection_visualization(samples,filename = "projection.png")
+```
+
+
+We then cut the clusters into separate cell types and select some clusters to study batch effects based on the number of cells in those clusters and the shapiro test results of those clusters.
+
+```{r eval=F}
+##there are three major cell types in the visualization plot of the projection result 
+samples<-cut_groups(samples,K=3, method = "ward.D")
+##select clusters which have enough cells and which have low transformed shapiro pvalue
+samples<-select_groups(samples, quantile = 0.95)
+```
+
+
+
+# Batch effects correction
+
+```{r eval=F}
+##batch effects correction
+samples<-run_alignment_by_2D(samples, selected = c(2,3), quantile = 0.95)
+##visualize the corrected data, selecting PC3 and PC4, and cell cluster1 and cell cluster 2 
+plot_corrected(samples, filename = "plot_corrected.png", pcs.plot = c(3:4), celltypes.plot = c(1,2))
+```
+
+
+Once we are satisfied with the results of batch effects correction in the previous step, we now move the low-dimensional data in PC space to the original high-dimensional space. 
+```{r eval=F}
+samples<-move_back_to_original_space(samples)
+```
