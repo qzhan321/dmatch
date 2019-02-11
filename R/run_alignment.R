@@ -408,11 +408,10 @@ plot_corrected <- function(object, filename = NULL, pcs.plot, celltypes.plot){
 
 
 
-
 move_back_to_original_space <- function(object){
   batch.id<-object@batch.id
   Final1 <- t(object@PCA$Raw[object@PCA$batch.id.forPC==batch.id[1],]) + object@PCA$Loadings%*%t(object@run_alignment_by_2D.results$Corrected - object@PCA$PCs[object@PCA$batch.id.forPC==batch.id[1],])
-  Final2 <- t(object@PCA$Raw[object@PCA$batch.id.forPC==batch.id[2],]) + object@PCA$Loadings%*%t(object@run_alignment_by_2D.results$Corrected - object@PCA$PCs[object@PCA$batch.id.forPC==batch.id[2],])
+  Final2 <- t(object@PCA$Raw[object@PCA$batch.id.forPC==batch.id[2],]) + object@PCA$Loadings%*%t(object@run_alignment_by_2D.results$Reference - object@PCA$PCs[object@PCA$batch.id.forPC==batch.id[2],])
   object@outcome.list<-list(Final1,Final2)
   return(object) 
 }
