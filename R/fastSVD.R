@@ -8,7 +8,7 @@
 #' @param nPC Number of PCs to keep
 #' @param min.cells Filtering out the genes which are expressed in less than min.cells cells
 #' @param min.genes Filtering out the cells which have less than min.genes genes expressed
-#' @return A list consists of: PCs, Loadings, Centers, batch.id for samples while performing SVD, Raw representing the input (before centering) for SVD, cell used for SVD, genes used for SVD
+#' @return A list consists of: PCs, Loadings, Centers, batch.id for samples while performing SVD, Raw representing the input (before centering) for SVD, cells used for SVD, genes used for SVD
 #' @export
 
 fastSVD <- function(samples.list, nPC = 30, min.cells=NULL, min.genes=NULL){

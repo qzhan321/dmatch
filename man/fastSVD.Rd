@@ -16,7 +16,7 @@ fastSVD(samples.list, nPC = 30, min.cells = NULL, min.genes = NULL)
 \item{sample.list}{A list of samples}
 }
 \value{
-A list consists of: PCs, Loadings, Centers, batch.id for samples while performing SVD, Raw representing the input (before centering) for SVD, cell used for SVD, genes used for SVD
+A list consists of: PCs, Loadings, Centers, batch.id for samples while performing SVD, Raw representing the input (before centering) for SVD, cells used for SVD, genes used for SVD
 }
 \description{
 Perform SVD

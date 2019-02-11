@@ -109,36 +109,45 @@ sample2&lt;-<span class="kw">read.csv</span>(<span class="kw">gzfile</span>(<spa
 <p>Inspect the PC plot of those samples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCAplot&lt;-<span class="kw"><a href="../reference/PCAPlot.html">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="st">"pc_plot.png"</span>)</code></pre></div>
 <p><img src="pc_plot.png" title="pc plot before correction" alt="plot of chunk pc_plot" style="display:block; margin: auto"></p>
-<p>Create a dmatch class object, which contains slots to store multiple types of information for the samples. The second element in the list will be used as the reference sample. Recommend to select the sample which has more cells to be the reference sample.</p>
+<p>Create a dmatch class object, which contains slots to store multiple types of information for the samples. The input for raw.data is a list of samples and the second element in that list will be used as the reference sample. Recommend to select the sample which has more cells as the reference sample.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/CreatedmatchObject.html">CreatedmatchObject</a></span>(<span class="dt">raw.data =</span> <span class="kw">list</span>(sample2,sample1), <span class="dt">batch.id =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">PCA =</span> PCA)</code></pre></div>
 </div>
 <div id="identifying-nearest-neighbors-across-batches" class="section level1">
 <h1 class="hasAnchor">
 <a href="#identifying-nearest-neighbors-across-batches" class="anchor"></a>Identifying nearest neighbors across batches</h1>
-<p>We introduce external information, a reference panel, which is composed of 95 primary cell lines and ~5000 genes. The reference panel is a 44 meta-analysis of a large number of publicly available microarray datasets.</p>
-<p>Those cell types in the reference panel do not necessarily represent the true biological cell types. It contains detailed information to identify separate clusters in the experimental datasets. Cells from different batches which are identified as the same cell type in the reference panel are the nearest neighbors across batches.</p>
+<p>We introduce external information, a reference panel, which is composed of 95 primary cell lines and ~5000 genes to identify separate cell clusters in the samples. The reference panel is a 44 meta-analysis of a large number of publicly available microarray datasets.</p>
+<p>Those cell types in the reference panel do not necessarily represent the true biological cell types. The reference panel contains detailed and rich information to identify separate clusters in experimental datasets. Cells from different samples/batches which are highly correlated to the same cell type in the reference panel are the nearest neighbors across samples/batches.</p>
 <p>Load the reference panel We provided two versions of the reference panel which use different gene naming systems: cell.line.to.ensl.ID and cell_atlas_ref_panel</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"cell.line.to.ensl.ID"</span>, <span class="dt">package =</span> <span class="st">"dmatch"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"cell_atlas_ref_panel"</span>, <span class="dt">package =</span> <span class="st">"dmatch"</span>)
 ##the above code will return the path of the desired reference panel, then use the following code to load the desired reference panel.
 <span class="kw">load</span>(path)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##project the cells in the samples to the reference panel
-samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,cell.line)
-##visualize the projection result
-samples&lt;-<span class="kw"><a href="../reference/projection_visualization.html">projection_visualization</a></span>(samples,<span class="dt">filename =</span> <span class="st">"projection.png"</span>)</code></pre></div>
+samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,<span class="dt">Reference =</span> cell.line)
+##visualize the projection result: recommended hclust method include: complete, ward.D, ward.D2
+samples&lt;-<span class="kw"><a href="../reference/projection_visualization.html">projection_visualization</a></span>(samples,<span class="dt">filename =</span> <span class="st">"projection.png"</span>,<span class="dt">hclust.method =</span> <span class="st">"ward.D"</span>)</code></pre></div>
 <p><img src="projection.png" title="projection to the reference panel" alt="plot of chunk projection" style="display:block; margin: auto"></p>
 <p>We then cut the clusters into separate cell types and select some clusters to study batch effects based on the number of cells in those clusters and the shapiro test results of those clusters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##there are three major cell types in the visualization plot of the projection result 
-samples&lt;-<span class="kw"><a href="../reference/cut_groups.html">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">3</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)
-##select clusters which have enough cells and which have low transformed shapiro pvalue
-samples&lt;-<span class="kw">select_groups</span>(samples, <span class="dt">quantile =</span> <span class="fl">0.95</span>)</code></pre></div>
+samples&lt;-<span class="kw"><a href="../reference/cut_groups.html">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">5</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)
+##select clusters which have enough cells and which have low transformed shapiro pvalue; recomended quantile includes: 0.90,0.95,0.98
+samples&lt;-<span class="kw"><a href="../reference/select_clusters.html">select_clusters</a></span>(samples, <span class="dt">quantile =</span> <span class="fl">0.98</span>)
+##the results will be stored in select.clusters slot</code></pre></div>
+<p>To inspect the cell numbers of each cluster and the result of shapiro test:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples@select.clusters$cells.num
+samples@select.clusters$shapiro.test.pvalue</code></pre></div>
+<p><img src="shapiro_test.png" title="plot shapiro_test results" alt="plot of shapiro_test" style="display:block; margin: auto"></p>
+<p>We would select cell cluster 3 and 4 as the reference clusters.</p>
 </div>
 <div id="batch-effects-correction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#batch-effects-correction" class="anchor"></a>Batch effects correction</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch effects correction
-samples&lt;-<span class="kw"><a href="../reference/run_alignment_by_2D.html">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">quantile =</span> <span class="fl">0.95</span>)
-##visualize the corrected data, selecting PC3 and PC4, and cell cluster1 and cell cluster 2 
-<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">4</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch effects correction: recommended quantile includes: 0.90,0.95,0.98
+samples&lt;-<span class="kw"><a href="../reference/run_alignment_by_2D.html">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">quantile =</span> <span class="fl">0.98</span>)
+##visualize the corrected data, selecting PC1 and PC2, and all cell clusters in the samples
+<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
+##also can inspect the corrected data selecting less cell clusters
+<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>))</code></pre></div>
+<p><img src="plot_corrected.png" title="plot corrected data with all cell clusters" alt="plot of corrected data" style="display:block; margin: auto"><img src="plot_corrected_single.png" title="plot corrected data with a single cell cluster" alt="plot of corrected data" style="display:block; margin: auto"></p>
 <p>Once we are satisfied with the results of batch effects correction in the previous step, we now move the low-dimensional data in PC space to the original high-dimensional space.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="../reference/move_back_to_original_space.html">move_back_to_original_space</a></span>(samples)</code></pre></div>
 </div>
