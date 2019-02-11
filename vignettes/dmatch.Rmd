@@ -8,7 +8,7 @@ output: html_document
 
 # Introduction
   
-The dmatch algorithm allows batch effect removal for single cell RNA-Seq data. It comprises of three key components including: 
+The `dmatch` algorithm allows batch effect removal for single cell RNA-Seq data. It comprises of three key components including: 
   
   1.  Dimension reduction; 
   2.  Identification of nearest neighbore across batches; and 
@@ -31,7 +31,7 @@ suppressPackageStartupMessages({
 We selected HC1 PBMC sample and SLE BMMC sample for illustration in this tutorial. 
   
 ```{r eval=F}
-sample1<-read.csv(gzfile("HC1_BMMC.barcode_gene.csv.names.gz"), row.names = 1, header = T)
+sample1<-read.csv(gzfile("HC1_PBMC.barcode_gene.csv.names.gz"), row.names = 1, header = T)
 sample2<-read.csv(gzfile("SLE_BMMC.barcode_gene.csv.names.gz"), row.names = 1, header = T)
 colnames(sample1)<-paste("sample1", colnames(sample1), sep = "_")
 colnames(sample2)<-paste("sample2", colnames(sample2), sep = "_")
@@ -48,10 +48,19 @@ Inspect the PC plot of those samples:
 ```{r eval=F}
 PCAplot<-PCAPlot(PCA = PCA, PCs.to.plot = c(1,2), filename = "pc_plot.png")
 ```
+<!-- <img src="/pc_plot.png"> -->
 
-Create a dmatch class object, which contains slots to store multiple types of information for the samples.
+![](https://github.com/qzhan321/dmatch/tree/master/pngs/pc_plot?raw=true)
+
+<!-- ![](pc_plot.pdf) -->
+
+<!-- ```{r, out.width = '100%'} -->
+<!-- knitr::include_graphics("pc_plot.png") -->
+<!-- ``` -->
+
+Create a dmatch class object, which contains slots to store multiple types of information for the samples. The second element in the list will be used as the reference sample. Recommend to select the sample which has more cells to be the reference sample.
 ```{r eval=F}
-samples<-projection_to_reference_panel(samples,cell.line)
+CreatedmatchObject(raw.data = list(sample2,sample1), batch.id = c(2,1), PCA = PCA)
 ```
 
 
