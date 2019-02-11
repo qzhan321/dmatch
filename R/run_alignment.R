@@ -84,7 +84,7 @@ CreatedmatchObject<-function(raw.data, batch.id, project = "dmatchProject", PCA=
   raw.data2<-raw.data2[,cells2]
   
   raw.data<-cbind(raw.data1,raw.data2)
-  batch<-as.data.frame(c(rep(1,ncol(raw.data1)), rep(2,ncol(raw.data2))))
+  batch<-as.data.frame(c(rep(batch.id1,ncol(raw.data1)), rep(batch.id2,ncol(raw.data2))))
   colnames(batch)<-"batch"
   rownames(batch)<-colnames(raw.data)
   object <- new(Class = "dmatch", raw.data = raw.data, project.name = project, PCA=PCA)
