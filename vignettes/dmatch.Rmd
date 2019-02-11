@@ -48,7 +48,7 @@ Inspect the PC plot of those samples:
 ```{r eval=F}
 PCAplot<-PCAPlot(PCA = PCA, PCs.to.plot = c(1,2), filename = "pc_plot.png")
 ```
-![](https://github.com/qzhan321/dmatch/tree/master/docs/articles/pngs/pc_plot.png){width=100%}
+![](https://github.com/qzhan321/dmatch/tree/master/man/pngs/pc_plot.png){width=100%}
 
 
 Create a dmatch class object, which contains slots to store multiple types of information for the samples. The second element in the list will be used as the reference sample. Recommend to select the sample which has more cells to be the reference sample.
