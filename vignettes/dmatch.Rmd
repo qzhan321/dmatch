@@ -54,7 +54,7 @@ PCAplot<-PCAPlot(PCA = PCA, PCs.to.plot = c(1,2), filename = "pc_plot.png")
 
 Create a dmatch class object, which contains slots to store multiple types of information for the samples. The input for raw.data is a list of samples and the second element in that list will be used as the reference sample. Recommend to select the sample which has more cells as the reference sample.
 ```{r eval=F}
-CreatedmatchObject(raw.data = list(sample2,sample1), batch.id = c(2,1), PCA = PCA)
+samples<-CreatedmatchObject(raw.data = list(sample2,sample1), batch.id = c(2,1), PCA = PCA)
 ```
 
 
