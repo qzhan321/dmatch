@@ -72,7 +72,7 @@
       <h1>An introduction to the dmatch package</h1>
                         <h4 class="author">Qi Zhan</h4>
             
-            <h4 class="date">12 Feb 2019</h4>
+            <h4 class="date">14 Feb 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/qzhan321/dmatch/blob/master/vignettes/dmatch.Rmd"><code>vignettes/dmatch.Rmd</code></a></small>
       <div class="hidden name"><code>dmatch.Rmd</code></div>
@@ -144,7 +144,7 @@ samples@select.clusters$shapiro.test.pvalue</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch effects correction: recommended quantile includes: 0.90,0.95,0.98
 samples&lt;-<span class="kw"><a href="../reference/run_alignment_by_2D.html">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">quantile =</span> <span class="fl">0.98</span>)
 ##visualize the corrected data, selecting PC1 and PC2, and all cell clusters in the samples
-<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
+<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))
 ##also can inspect the corrected data selecting less cell clusters
 <span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">filename =</span> <span class="st">"plot_corrected.png"</span>, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>))</code></pre></div>
 <p><img src="plot_corrected.png" title="plot corrected data with all cell clusters" alt="plot of corrected data" style="display:block; margin: auto"><img src="plot_corrected_single.png" title="plot corrected data with a single cell cluster" alt="plot of corrected data" style="display:block; margin: auto"></p>

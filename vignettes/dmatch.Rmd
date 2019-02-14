@@ -111,7 +111,7 @@ We would select cell cluster 3 and 4 as the reference clusters.
 ##batch effects correction: recommended quantile includes: 0.90,0.95,0.98
 samples<-run_alignment_by_2D(samples, selected = c(3,4), quantile = 0.98)
 ##visualize the corrected data, selecting PC1 and PC2, and all cell clusters in the samples
-plot_corrected(samples, filename = "plot_corrected.png", pcs.plot = c(1:2), celltypes.plot = c(1,2))
+plot_corrected(samples, filename = "plot_corrected.png", pcs.plot = c(1:2), celltypes.plot = c(1,2,3,4,5))
 ##also can inspect the corrected data selecting less cell clusters
 plot_corrected(samples, filename = "plot_corrected.png", pcs.plot = c(1:2), celltypes.plot = c(3))
 ```
