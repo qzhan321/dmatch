@@ -12,7 +12,7 @@ run_alignment_by_2D(object, quantile = 0.95, K = 30, selected = NULL,
 
 \item{K}{The number of PCs for correcting batch effects}
 
-\item{NCell}{The smallest number of cells that a selected cluster should have. Default is 100, and recommend no less than 5% of the sample size}
+\item{NCell}{The smallest number of cells that a selected cluster should have. Default is 100, and recommend no less than 5\% of the sample size}
 }
 \value{
 A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information
