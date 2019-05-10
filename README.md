@@ -1,6 +1,6 @@
 ### Installation
 
-**dmatch** relies on the following R packages: **Rcpp**, **RcppArmadillo**, **mvtnorm**, **RcppEigen**, **irlba**. All packagess are hosted on CRAN.
+**dmatch** relies on the following R packages: **Rcpp**, **RcppArmadillo**, **mvtnorm**, **RcppEigen**, **irlba**. All packages are hosted on CRAN.
 
 ```r
 install.packages("Rcpp")
