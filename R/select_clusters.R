@@ -3,20 +3,26 @@
 #' Calculate the shapiro test for normality for each cluster in each sample, and return the table for the cell numbers for each cluster in each sample
 #'
 #'
-#' @author Mengjie Chen
-#' @param object A dmatch class object
-#' @param quantile Quantile to cut to include only the good cells for calculating shapiro pvalue for each cluster 
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information
+#' @author Mengjie Chen, Qi Zhan
+#' @param object A dmatch class object.
+#' @param quantile The minimum number of the data points regarded as good points.
+#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, select.clusters slot stores information for shapiro test result and numbers of cells in each cluster in each sample.
 #' @export
 select_clusters<-function(object, quantile=0.95) {
   require(MASS)
-  PCA<-object@PCA
+  PCA<-objects@PCA
   batch.id<-object@batch.id
   batch.id.forPC<-PCA$batch.id.forPC
-  Data1 <- PCA$PCs[batch.id.forPC==batch.id[1],]
-  Data2 <- PCA$PCs[batch.id.forPC==batch.id[2],]
-  Labels1 <- object@metadata$CellType[object@metadata$batch==batch.id[1]]
-  Labels2 <- object@metadata$CellType[object@metadata$batch==batch.id[2]]
+  batch.id.update<-object@Projection$batch.id.update
+  batch.id.update1<-batch.id.update[batch.id.update==batch.id[1]]
+  batch.id.update2<-batch.id.update[batch.id.update==batch.id[2]]
+  
+  Data1 <- PCA$PCs[names(batch.id.update1),]
+  Data2 <- PCA$PCs[names(batch.id.update2),]
+  
+  Labels1 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[1]]
+  Labels2 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[2]]
+  
   #Shapiro-Wilk test
   shapiros1<-NULL
   for (k in 1:10) {
@@ -50,9 +56,6 @@ select_clusters<-function(object, quantile=0.95) {
   pvalue<-cbind(a,pvalue)
   
   mean_shapiro1<-apply(pvalue[,3:12], 1, function(x) sum(-log(x))/10)
-  
-  
-  
   
   shapiros2<-NULL
   for (k in 1:10) {

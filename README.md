@@ -24,7 +24,7 @@ https://qzhan321.github.io/dmatch.
 
 ### Contact us
 If you have any enquires, especially about performing dmatch integration on your data, then please contact
-**Mengjie Chen** (UChicago) mengjiechen@uchicago.edu
+**Qi Zhan** (UChicago) qizhan@uchicago.edu
 
 
 

@@ -1,23 +1,30 @@
 #' run_alignment_by_2D
 #'
-#' Correct batch effects 
+#' Correct batch effects. 
 #'
 #'
-#' @author Mengjie Chen
-#' @param object A dmatch class object
-#' @param K The number of PCs for correcting batch effects
-#' @param NCell The smallest number of cells that a selected cluster should have. Default is 100, and recommend no less than 5% of the sample size
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information
+#' @author Mengjie Chen, Qi Zhan
+#' @param object A dmatch class object.
+#' @param K The number of PCs for correcting batch effects, default is 30.
+#' @param NCell The smallest number of cells that a selected cluster (as anchors) should have. Default is 100, and recommend no less than 5% of the sample size.
+#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specfically, run_alignment_by_2D.results slot stores information for the reference sample, the original and corrected version of the other sample, and the celltype labels for both samples. 
 #' @export
 
 run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL,
                                 Nclust = NULL, steps = 20, gra_steps = 10, NCell = 100){
   
+  PCA<-objects@PCA
   batch.id<-object@batch.id
-  Data1<-object@PCA$PCs[object@PCA$batch.id.forPC==batch.id[1],]
-  Data2<-object@PCA$PCs[object@PCA$batch.id.forPC==batch.id[2],]
-  Labels1<-object@metadata$CellType[object@metadata$batch==batch.id[1]]
-  Labels2<-object@metadata$CellType[object@metadata$batch==batch.id[2]]
+  batch.id.forPC<-PCA$batch.id.forPC
+  batch.id.update<-object@Projection$batch.id.update
+  batch.id.update1<-batch.id.update[batch.id.update==batch.id[1]]
+  batch.id.update2<-batch.id.update[batch.id.update==batch.id[2]]
+  
+  Data1 <- PCA$PCs[names(batch.id.update1),]
+  Data2 <- PCA$PCs[names(batch.id.update2),]
+  
+  Labels1 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[1]]
+  Labels2 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[2]]
   
   require(MASS)
   if(is.null(selected)){
@@ -72,10 +79,19 @@ run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL
 run_alignment_robust <- function(object, batch.id, quantile = 0.95, selected = NULL,
                                  Nclust = NULL, steps = 20, gra_steps = 10, NCell = 100){
   
-  Data1<-object@PCA$PCs[object@PCA$batch.id.forPC==batch.id[1],1:2]
-  Data2<-object@PCA$PCs[object@PCA$batch.id.forPC==batch.id[2],1:2]
-  Labels1<-object@metadata$CellType[object@metadata$batch==batch.id[1]]
-  Labels2<-object@metadata$CellType[object@metadata$batch==batch.id[2]]
+  PCA<-objects@PCA
+  batch.id<-object@batch.id
+  batch.id.forPC<-PCA$batch.id.forPC
+  batch.id.update<-object@Projection$batch.id.update
+  batch.id.update1<-batch.id.update[batch.id.update==batch.id[1]]
+  batch.id.update2<-batch.id.update[batch.id.update==batch.id[2]]
+  
+  Data1 <- PCA$PCs[names(batch.id.update1),]
+  Data2 <- PCA$PCs[names(batch.id.update2),]
+  
+  Labels1 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[1]]
+  Labels2 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[2]]
+  
   #Types1 <- unique(Labels1)
   #Types2 <- unique(Labels2)
   
@@ -182,6 +198,7 @@ run_alignment_robust <- function(object, batch.id, quantile = 0.95, selected = N
   return(object)
   
 }
+
 
 run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
   

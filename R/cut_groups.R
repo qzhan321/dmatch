@@ -1,13 +1,13 @@
 #' cut_groups
 #'
-#' Cut cells in the samples into major cell types
+#' This step follows projection_visualization. After hclust() to cluster data and heatmap.2() to draw the heatmap in the projection_visualization step, this step uses cutree() to get subclusters, i.e., the major cell types in the samples. 
 #'
 #'
-#' @author Mengjie Chen
-#' @param object A dmatch class object
-#' @param K Number of cell types to cut
-#' @param method The agglomeration method to be used for hierarchical cluster analysis   
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information
+#' @author Mengjie Chen, Qi Zhan
+#' @param object A dmatch class object.
+#' @param K Number of cell types to cut.
+#' @param method The agglomeration method used by hclust() in the projection_visualization step for clustering data.   
+#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, cut_group slot stores information of celltypes for cells in the pairwise samples ("CellType").
 #' @export
 cut_groups <- function(object, K, method="ward.D"){
   
@@ -15,9 +15,6 @@ cut_groups <- function(object, K, method="ward.D"){
   dd <- dist(t(WeightMat))
   ee <- hclust(dd, method)
   groups <- cutree(ee, k=K)
-  groups<-as.data.frame(groups)
-  rownames(groups)<-colnames(object@raw.data)
-  colnames(groups)<-"CellType"
-  object@metadata<-cbind(object@metadata,groups) 
+  object@cut_groups<-list("CellType"=groups, "batch.id_update"=object@Projection$batch.id.update)
   return(object)
 }

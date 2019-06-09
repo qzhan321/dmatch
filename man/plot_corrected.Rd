@@ -7,20 +7,20 @@
 plot_corrected(object, filename = NULL, pcs.plot, celltypes.plot)
 }
 \arguments{
-\item{object}{A dmatch class object}
+\item{object}{A dmatch class object.}
 
-\item{filename}{The path and name of the png file}
+\item{filename}{The path and name of the png file. Default is NULL and the PC plot is printed directly.}
 
-\item{pcs.plot}{Which two PCs to plot}
+\item{pcs.plot}{Which two PCs to plot.}
 
-\item{celltypes.plot}{Which cell clusters to plot}
+\item{celltypes.plot}{Which cell clusters to plot.}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information
+Return graphs of samples in PC space after batch effects correction.
 }
 \description{
-PC plots for corrected samples
+PC plots for corrected samples.
 }
 \author{
-Mengjie Chen
+Mengjie Chen, Qi Zhan
 }

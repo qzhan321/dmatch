@@ -122,25 +122,25 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>raw.data</th>
-      <td><p>A list of pairwise samples for batch effects correction</p></td>
+      <td><p>A list of pairwise samples for batch effects correction, each of which is a raw read count dataset.</p></td>
     </tr>
     <tr>
       <th>batch.id</th>
-      <td><p>Batch.id which are used to denote those two samples in the previous fastSVD step</p></td>
+      <td><p>Batch.ids which are used to denote those two samples in the previous fastSVD step.</p></td>
     </tr>
     <tr>
       <th>project</th>
-      <td><p>The name of the project</p></td>
+      <td><p>Project name (string).</p></td>
     </tr>
     <tr>
       <th>PCA</th>
-      <td><p>The output from fastSVD</p></td>
+      <td><p>The output from fastSVD, i.e., the list returned by fastSVD function.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dmatch class object which have slots storing raw.data, batch.id, PCA and etc information</p>
+    <p>Initializes the dmatch object. Return a dmatch class object which have slots storing raw.data, batch.id, PCA, and etc. This step only includes the cells and genes used in fastSVD step for the samples provided in the raw.data.</p>
     
 
   </div>
@@ -154,7 +154,7 @@
 
     <h2>Author</h2>
     
-Mengjie Chen
+Mengjie Chen, Qi Zhan
 
   </div>
 </div>

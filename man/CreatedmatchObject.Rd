@@ -8,20 +8,20 @@ CreatedmatchObject(raw.data, batch.id, project = "dmatchProject",
   PCA = PCA)
 }
 \arguments{
-\item{raw.data}{A list of pairwise samples for batch effects correction}
+\item{raw.data}{A list of pairwise samples for batch effects correction, each of which is a raw read count dataset.}
 
-\item{batch.id}{Batch.id which are used to denote those two samples in the previous fastSVD step}
+\item{batch.id}{Batch.ids which are used to denote those two samples in the previous fastSVD step.}
 
-\item{project}{The name of the project}
+\item{project}{Project name (string).}
 
-\item{PCA}{The output from fastSVD}
+\item{PCA}{The output from fastSVD, i.e., the list returned by fastSVD function.}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA and etc information
+Initializes the dmatch object. Return a dmatch class object which have slots storing raw.data, batch.id, PCA, and etc. This step only includes the cells and genes used in fastSVD step for the samples provided in the raw.data.
 }
 \description{
 Create a dmatch class object
 }
 \author{
-Mengjie Chen
+Mengjie Chen, Qi Zhan
 }

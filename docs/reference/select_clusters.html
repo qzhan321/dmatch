@@ -121,17 +121,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A dmatch class object</p></td>
+      <td><p>A dmatch class object.</p></td>
     </tr>
     <tr>
       <th>quantile</th>
-      <td><p>Quantile to cut to include only the good cells for calculating shapiro pvalue for each cluster</p></td>
+      <td><p>The minimum number of the data points regarded as good points.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information</p>
+    <p>A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, select.clusters slot stores information for shapiro test result and numbers of cells in each cluster in each sample.</p>
     
 
   </div>
@@ -145,7 +145,7 @@
 
     <h2>Author</h2>
     
-Mengjie Chen
+Mengjie Chen, Qi Zhan
 
   </div>
 </div>

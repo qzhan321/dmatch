@@ -7,18 +7,20 @@
 PCAPlot(PCA, PCs.to.plot, filename)
 }
 \arguments{
-\item{PCA}{The list returned by fastSVD}
+\item{PCA}{The output from fastSVD, i.e., the list returned by fastSVD function.}
 
-\item{PCs.to.plot}{Which two PCs to visualize}
+\item{PCs.to.plot}{A vector indicates which two PCs to plot.}
 
-\item{filename}{The path and name of the PCA plot returned}
+\item{filename}{The path and name of the PCA plot returned, default value is NULL and the PCA plot is printed directly.}
+
+\item{batchs.to.plot}{A vector indicates which batches of PCs to plot.}
 }
 \value{
-A png file for the visualization of SVD results
+Graphs the output of SVD results, colored by their batch id.
 }
 \description{
 Visualize the result of SVD
 }
 \author{
-Mengjie Chen
+Mengjie Chen, Qi Zhan
 }

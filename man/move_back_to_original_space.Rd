@@ -7,14 +7,14 @@
 move_back_to_original_space(object)
 }
 \arguments{
-\item{object}{A dmatch class object}
+\item{object}{A dmatch class object.}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information
+A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, outcome.list slot stores information for the corrected sample and the reference sample in the original high dimensional space.
 }
 \description{
-Move cells in the PC space to the original high-dimensional space
+Move cells in the PC space to the original high-dimensional space, i.e., return the pairwise samples which are batch-effect corrected, centered, library-size normalized, and log transformed.
 }
 \author{
-Mengjie Chen
+Mengjie Chen, Qi Zhan
 }
