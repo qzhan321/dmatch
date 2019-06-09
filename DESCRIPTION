@@ -3,7 +3,8 @@ Type: Package
 Title: dmatch: a batch-effects-removing method for single cell RNA
         sequencing data
 Version: 0.1.8
-Authors@R: person("Mengjie Chen", role = c("aut", "cre"), email = "mengjiechen@uchicago.edu")
+Authors@R: c(person("Mengjie Chen", role = c("aut", "cre"), email = "mengjiechen@uchicago.edu"),
+             person("Qi Zhan", role="ctb", email="qizhan@uchicago.edu"))
 Maintainer: Qi Zhan <qizhan@uchicago.edu>
 Description: Implementation of the dmatch algorithm for single cell integration. Package includes functions to integrate single cell RNA sequencing data and help assess performance of the integration. 
 License: GPL (>=2)

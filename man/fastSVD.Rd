@@ -7,7 +7,7 @@
 fastSVD(samples.list, nPC = 30, min.cells = NULL, min.genes = NULL)
 }
 \arguments{
-\item{nPC}{Total Number of PCs to compute and store (30 by default).}
+\item{nPC}{Total number of PCs to compute and store (30 by default).}
 
 \item{min.cells}{Include genes with detected expression in at least this many cells.}
 
