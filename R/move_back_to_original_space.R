@@ -4,8 +4,8 @@
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param object A dmatch class object.
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, outcome.list slot stores information for the corrected sample and the reference sample in the original high dimensional space.
+#' @param object A dmatch class object
+#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, outcome.list slot stores information for the corrected sample and the reference sample in the original high dimensional space
 #' @export
 move_back_to_original_space <- function(object){
   batch.id<-object@batch.id

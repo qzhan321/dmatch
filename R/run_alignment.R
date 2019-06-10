@@ -644,5 +644,251 @@ run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, Sh
 
 
 
+run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
+  
+  if(length(SharedType) == 1){
+    X <- Data1[Labels1 == SharedType, ]
+    x1 <- Data2[Labels2 == SharedType, ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    
+    X <- X[subx.flag, ]
+    x1 <- x1[subx1.flag, ]
+    res <- run_simple_est_theta_coordinate_descent_one_cluster_cpp(X, x1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+  }
+  
+  if(length(SharedType) == 2){
+    X <- Data1[Labels1 == SharedType[1], ]
+    x1 <- Data2[Labels2 == SharedType[1], ]
+    Y <- Data1[Labels1 == SharedType[2], ]
+    y1 <- Data2[Labels2 == SharedType[2], ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    suby.flag <- cov.mve(Y, quantile.used = quantile*nrow(Y))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    suby1.flag <- cov.mve(y1, quantile.used = quantile*nrow(y1))$best
+    
+    X <- X[subx.flag, ]
+    Y <- Y[suby.flag, ]
+    x1 <- x1[subx1.flag, ]
+    y1 <- y1[suby1.flag, ]
+    
+    res <- run_simple_est_theta_coordinate_descent_cpp(X, Y, x1, y1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+  }
+  
+  if(length(SharedType) >= 3){
+    X <- Data1[Labels1 == SharedType[1], ]
+    x1 <- Data2[Labels2 == SharedType[1], ]
+    Y <- Data1[Labels1 == SharedType[2], ]
+    y1 <- Data2[Labels2 == SharedType[2], ]
+    Z <- Data1[Labels1 == SharedType[3], ]
+    z1 <- Data2[Labels2 == SharedType[3], ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    suby.flag <- cov.mve(Y, quantile.used = quantile*nrow(Y))$best
+    subz.flag <- cov.mve(Z, quantile.used = quantile*nrow(Z))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    suby1.flag <- cov.mve(y1, quantile.used = quantile*nrow(y1))$best
+    subz1.flag <- cov.mve(z1, quantile.used = quantile*nrow(z1))$best
+    
+    X <- X[subx.flag, ]
+    Y <- Y[suby.flag, ]
+    Z <- Z[subz.flag, ]
+    x1 <- x1[subx1.flag, ]
+    y1 <- y1[suby1.flag, ]
+    z1 <- z1[subz1.flag, ]
+    
+    res <- run_simple_est_theta_coordinate_descent_three_cluster_cpp(X, Y, Z, x1, y1, z1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+    
+  }
+  
+  res <- list(RefTypes = SharedType, Target = Data2,
+              Labels1 = Labels1, Labels2 = Labels2,
+              Orignial = Data1, Corrected = corrected,
+              estA = estA, estd = estd)
+  
+  return(res)
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
+  
+  if(length(SharedType) == 1){
+    X <- Data1[Labels1 == SharedType, ]
+    x1 <- Data2[Labels2 == SharedType, ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    
+    X <- X[subx.flag, ]
+    x1 <- x1[subx1.flag, ]
+    res <- run_simple_est_theta_coordinate_descent_one_cluster_cpp(X, x1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+  }
+  
+  if(length(SharedType) == 2){
+    X <- Data1[Labels1 == SharedType[1], ]
+    x1 <- Data2[Labels2 == SharedType[1], ]
+    Y <- Data1[Labels1 == SharedType[2], ]
+    y1 <- Data2[Labels2 == SharedType[2], ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    suby.flag <- cov.mve(Y, quantile.used = quantile*nrow(Y))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    suby1.flag <- cov.mve(y1, quantile.used = quantile*nrow(y1))$best
+    
+    X <- X[subx.flag, ]
+    Y <- Y[suby.flag, ]
+    x1 <- x1[subx1.flag, ]
+    y1 <- y1[suby1.flag, ]
+    
+    res <- run_simple_est_theta_coordinate_descent_cpp(X, Y, x1, y1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+  }
+  
+  if(length(SharedType) >= 3){
+    X <- Data1[Labels1 == SharedType[1], ]
+    x1 <- Data2[Labels2 == SharedType[1], ]
+    Y <- Data1[Labels1 == SharedType[2], ]
+    y1 <- Data2[Labels2 == SharedType[2], ]
+    Z <- Data1[Labels1 == SharedType[3], ]
+    z1 <- Data2[Labels2 == SharedType[3], ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    suby.flag <- cov.mve(Y, quantile.used = quantile*nrow(Y))$best
+    subz.flag <- cov.mve(Z, quantile.used = quantile*nrow(Z))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    suby1.flag <- cov.mve(y1, quantile.used = quantile*nrow(y1))$best
+    subz1.flag <- cov.mve(z1, quantile.used = quantile*nrow(z1))$best
+    
+    X <- X[subx.flag, ]
+    Y <- Y[suby.flag, ]
+    Z <- Z[subz.flag, ]
+    x1 <- x1[subx1.flag, ]
+    y1 <- y1[suby1.flag, ]
+    z1 <- z1[subz1.flag, ]
+    
+    res <- run_simple_est_theta_coordinate_descent_three_cluster_cpp(X, Y, Z, x1, y1, z1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+    
+  }
+  
+  res <- list(RefTypes = SharedType, Target = Data2,
+              Labels1 = Labels1, Labels2 = Labels2,
+              Orignial = Data1, Corrected = corrected,
+              estA = estA, estd = estd)
+  
+  return(res)
+  
+}
+
+
+
+
+run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
+  
+  if(length(SharedType) == 1){
+    X <- Data1[Labels1 == SharedType, ]
+    x1 <- Data2[Labels2 == SharedType, ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    
+    X <- X[subx.flag, ]
+    x1 <- x1[subx1.flag, ]
+    res <- run_simple_est_theta_coordinate_descent_one_cluster_cpp(X, x1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+  }
+  
+  if(length(SharedType) == 2){
+    X <- Data1[Labels1 == SharedType[1], ]
+    x1 <- Data2[Labels2 == SharedType[1], ]
+    Y <- Data1[Labels1 == SharedType[2], ]
+    y1 <- Data2[Labels2 == SharedType[2], ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    suby.flag <- cov.mve(Y, quantile.used = quantile*nrow(Y))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    suby1.flag <- cov.mve(y1, quantile.used = quantile*nrow(y1))$best
+    
+    X <- X[subx.flag, ]
+    Y <- Y[suby.flag, ]
+    x1 <- x1[subx1.flag, ]
+    y1 <- y1[suby1.flag, ]
+    
+    res <- run_simple_est_theta_coordinate_descent_cpp(X, Y, x1, y1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+  }
+  
+  if(length(SharedType) >= 3){
+    X <- Data1[Labels1 == SharedType[1], ]
+    x1 <- Data2[Labels2 == SharedType[1], ]
+    Y <- Data1[Labels1 == SharedType[2], ]
+    y1 <- Data2[Labels2 == SharedType[2], ]
+    Z <- Data1[Labels1 == SharedType[3], ]
+    z1 <- Data2[Labels2 == SharedType[3], ]
+    
+    subx.flag <- cov.mve(X, quantile.used = quantile*nrow(X))$best
+    suby.flag <- cov.mve(Y, quantile.used = quantile*nrow(Y))$best
+    subz.flag <- cov.mve(Z, quantile.used = quantile*nrow(Z))$best
+    subx1.flag <- cov.mve(x1, quantile.used = quantile*nrow(x1))$best
+    suby1.flag <- cov.mve(y1, quantile.used = quantile*nrow(y1))$best
+    subz1.flag <- cov.mve(z1, quantile.used = quantile*nrow(z1))$best
+    
+    X <- X[subx.flag, ]
+    Y <- Y[suby.flag, ]
+    Z <- Z[subz.flag, ]
+    x1 <- x1[subx1.flag, ]
+    y1 <- y1[suby1.flag, ]
+    z1 <- z1[subz1.flag, ]
+    
+    res <- run_simple_est_theta_coordinate_descent_three_cluster_cpp(X, Y, Z, x1, y1, z1, steps, gra_steps)
+    estA <- res$A
+    estd <- res$d
+    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+    
+  }
+  
+  res <- list(RefTypes = SharedType, Target = Data2,
+              Labels1 = Labels1, Labels2 = Labels2,
+              Orignial = Data1, Corrected = corrected,
+              estA = estA, estd = estd)
+  
+  return(res)
+  
+}
+
+
 
 

@@ -8,16 +8,16 @@ projection_to_reference_panel(object, Reference, CorMethod = "pearson",
   use.genes.threshold = NULL)
 }
 \arguments{
-\item{object}{A dmatch class object.}
+\item{object}{A dmatch class object}
 
-\item{Reference}{The reference panel.}
+\item{Reference}{The reference panel}
 
-\item{CorMethod}{A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson".}
+\item{CorMethod}{A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson"}
 
-\item{use.genes.threshold}{The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel.}
+\item{use.genes.threshold}{The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update.
+A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update
 }
 \description{
 Project the pairwise to the reference panel to identify separate clusters in the samples

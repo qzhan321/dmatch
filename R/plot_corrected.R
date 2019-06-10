@@ -1,14 +1,14 @@
 #' plot_corrected
 #'
-#' PC plots for corrected samples. 
+#' PC plots for corrected samples
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param object A dmatch class object.
-#' @param filename The path and name of the png file. Default is NULL and the PC plot is printed directly.
-#' @param pcs.plot Which two PCs to plot.
-#' @param celltypes.plot Which cell clusters to plot.
-#' @return Return graphs of samples in PC space after batch effects correction.
+#' @param object A dmatch class object
+#' @param filename The path and name of the png file. Default is NULL and the PC plot is printed directly
+#' @param pcs.plot Which two PCs to plot
+#' @param celltypes.plot Which cell clusters to plot
+#' @return Return graphs of samples in PC space after batch effects correction
 #' @export
 plot_corrected <- function(object, filename = NULL, pcs.plot, celltypes.plot){
   

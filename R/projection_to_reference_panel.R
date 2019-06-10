@@ -4,11 +4,11 @@
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param object A dmatch class object.
-#' @param Reference The reference panel.
-#' @param CorMethod A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson".
-#' @param use.genes.threshold The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel.
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update. 
+#' @param object A dmatch class object
+#' @param Reference The reference panel
+#' @param CorMethod A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson"
+#' @param use.genes.threshold The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel
+#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update 
 #' @export
 projection_to_reference_panel <- function(object, Reference, CorMethod = "pearson", use.genes.threshold=0.75){
   data<-object@raw.data

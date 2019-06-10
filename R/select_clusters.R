@@ -4,9 +4,9 @@
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param object A dmatch class object.
-#' @param quantile The minimum number of the data points regarded as good points.
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, select.clusters slot stores information for shapiro test result and numbers of cells in each cluster in each sample.
+#' @param object A dmatch class object
+#' @param quantile The minimum number of the data points regarded as good points
+#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, select.clusters slot stores information for shapiro test result and numbers of cells in each cluster in each sample
 #' @export
 select_clusters<-function(object, quantile=0.95) {
   require(MASS)

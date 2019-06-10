@@ -33,6 +33,8 @@
 
 
 <meta property="og:title" content="run_alignment_by_2D — run_alignment_by_2D" />
+
+<meta property="og:description" content="Correct batch effects" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,7 +109,9 @@
     </div>
 
     <div class="ref-description">
-
+    
+    <p>Correct batch effects</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>run_alignment_by_2D</span>(<span class='no'>object</span>, <span class='kw'>quantile</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>selected</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -118,17 +122,21 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A dmatch class object.</p></td>
+      <td><p>A dmatch class object</p></td>
     </tr>
     <tr>
       <th>K</th>
-      <td><p>The number of PCs for correcting batch effects, default is 30.</p></td>
+      <td><p>The number of PCs for correcting batch effects, default is 30</p></td>
     </tr>
     <tr>
       <th>NCell</th>
-      <td><p>The smallest number of cells that a selected cluster (as anchors) should have. Default is 100, and recommend no less than 5<!-- % of the sample size.} --></p></td>
+      <td><p>The smallest number of cells that a selected cluster (as anchors) should have. Default is 100, and recommend no less than 5 percent of the sample size</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A dmatch class object which has slots storing raw.data, batch.id, PCA, and more information. Specfically, run_alignment_by_2D.results slot stores information for the reference sample, the original and corrected version of the other sample, and the celltype labels for both samples</p>
     
 
   </div>
@@ -136,7 +144,13 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    
+Mengjie Chen, Qi Zhan
 
   </div>
 </div>

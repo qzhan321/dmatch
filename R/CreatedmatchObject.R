@@ -8,11 +8,11 @@ setClass("dmatch", representation(raw.data="data.frame", batch.id="vector", meta
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param raw.data A list of pairwise samples for batch effects correction, each of which is a raw read count dataset.
-#' @param batch.id Batch.ids which are used to denote those two samples in the previous fastSVD step. 
-#' @param project Project name (string).
-#' @param PCA The output from fastSVD, i.e., the list returned by fastSVD function. 
-#' @return Initializes the dmatch object. Return a dmatch class object which have slots storing raw.data, batch.id, PCA, and etc. This step only includes the cells and genes used in fastSVD step for the samples provided in the raw.data.
+#' @param raw.data A list of pairwise samples for batch effects correction, each of which is a raw read count dataset
+#' @param batch.id Batch.ids which are used to denote those two samples in the previous fastSVD step
+#' @param project Project name (string)
+#' @param PCA The output from fastSVD, i.e., the list returned by fastSVD function
+#' @return Initializes the dmatch object. Return a dmatch class object which have slots storing raw.data, batch.id, PCA, and etc. This step only includes the cells and genes used in fastSVD step for the samples provided in the raw.data
 #' @export
 CreatedmatchObject<-function(raw.data, batch.id, project = "dmatchProject", PCA=PCA) 
 { 

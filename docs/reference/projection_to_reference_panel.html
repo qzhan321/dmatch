@@ -122,25 +122,25 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A dmatch class object.</p></td>
+      <td><p>A dmatch class object</p></td>
     </tr>
     <tr>
       <th>Reference</th>
-      <td><p>The reference panel.</p></td>
+      <td><p>The reference panel</p></td>
     </tr>
     <tr>
       <th>CorMethod</th>
-      <td><p>A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson".</p></td>
+      <td><p>A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson"</p></td>
     </tr>
     <tr>
       <th>use.genes.threshold</th>
-      <td><p>The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel.</p></td>
+      <td><p>The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update.</p>
+    <p>A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update</p>
     
 
   </div>

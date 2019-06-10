@@ -4,10 +4,10 @@
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param object A dmatch class object.
-#' @param K Number of cell types to cut.
-#' @param method The agglomeration method used by hclust() in the projection_visualization step for clustering data.   
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, cut_group slot stores information of celltypes for cells in the pairwise samples ("CellType").
+#' @param object A dmatch class object
+#' @param K Number of cell types to cut
+#' @param method The agglomeration method used by hclust() in the projection_visualization step for clustering data
+#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, cut_group slot stores information of celltypes for cells in the pairwise samples ("CellType")
 #' @export
 cut_groups <- function(object, K, method="ward.D"){
   

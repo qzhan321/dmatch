@@ -4,11 +4,11 @@
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param PCA The output from fastSVD, i.e., the list returned by fastSVD function.
-#' @param PCs.to.plot A vector indicates which two PCs to plot.
-#' @param batchs.to.plot A vector indicates which batches of PCs to plot.
-#' @param filename The path and name of the PCA plot returned, default value is NULL and the PCA plot is printed directly. 
-#' @return Graphs the output of SVD results, colored by their batch id.
+#' @param PCA The output from fastSVD, i.e., the list returned by fastSVD function
+#' @param PCs.to.plot A vector indicates which two PCs to plot
+#' @param batchs.to.plot A vector indicates which batches of PCs to plot
+#' @param filename The path and name of the PCA plot returned, default value is NULL and the PCA plot is printed directly 
+#' @return Graphs the output of SVD results, colored by their batch id
 #' @export
 PCAPlot<-function(PCA, PCs.to.plot, batchs.to.plot, filename=NULL) {
   i<-PCs.to.plot[1]

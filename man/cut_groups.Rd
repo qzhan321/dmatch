@@ -7,14 +7,14 @@
 cut_groups(object, K, method = "ward.D")
 }
 \arguments{
-\item{object}{A dmatch class object.}
+\item{object}{A dmatch class object}
 
-\item{K}{Number of cell types to cut.}
+\item{K}{Number of cell types to cut}
 
-\item{method}{The agglomeration method used by hclust() in the projection_visualization step for clustering data.}
+\item{method}{The agglomeration method used by hclust() in the projection_visualization step for clustering data}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, cut_group slot stores information of celltypes for cells in the pairwise samples ("CellType").
+A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, cut_group slot stores information of celltypes for cells in the pairwise samples ("CellType")
 }
 \description{
 This step follows projection_visualization. After hclust() to cluster data and heatmap.2() to draw the heatmap in the projection_visualization step, this step uses cutree() to get subclusters, i.e., the major cell types in the samples.

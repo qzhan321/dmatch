@@ -8,17 +8,17 @@ run_alignment_by_2D(object, quantile = 0.95, K = 30, selected = NULL,
   Nclust = NULL, steps = 20, gra_steps = 10, NCell = 100)
 }
 \arguments{
-\item{object}{A dmatch class object.}
+\item{object}{A dmatch class object}
 
-\item{K}{The number of PCs for correcting batch effects, default is 30.}
+\item{K}{The number of PCs for correcting batch effects, default is 30}
 
-\item{NCell}{The smallest number of cells that a selected cluster (as anchors) should have. Default is 100, and recommend no less than 5% of the sample size.}
+\item{NCell}{The smallest number of cells that a selected cluster (as anchors) should have. Default is 100, and recommend no less than 5 percent of the sample size}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specfically, run_alignment_by_2D.results slot stores information for the reference sample, the original and corrected version of the other sample, and the celltype labels for both samples.
+A dmatch class object which has slots storing raw.data, batch.id, PCA, and more information. Specfically, run_alignment_by_2D.results slot stores information for the reference sample, the original and corrected version of the other sample, and the celltype labels for both samples
 }
 \description{
-Correct batch effects.
+Correct batch effects
 }
 \author{
 Mengjie Chen, Qi Zhan

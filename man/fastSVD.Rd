@@ -7,16 +7,16 @@
 fastSVD(samples.list, nPC = 30, min.cells = NULL, min.genes = NULL)
 }
 \arguments{
-\item{nPC}{Total number of PCs to compute and store (30 by default).}
+\item{nPC}{Total number of PCs to compute and store (30 by default)}
 
-\item{min.cells}{Include genes with detected expression in at least this many cells.}
+\item{min.cells}{Include genes with detected expression in at least this many cells}
 
-\item{min.genes}{Include cells where at least this many genes are detected.}
+\item{min.genes}{Include cells where at least this many genes are detected}
 
-\item{sample.list}{A list of raw inputs, each of which is a read count matrix (non-normalized) with rows as genes and columns as cells.}
+\item{sample.list}{A list of raw inputs, each of which is a read count matrix (non-normalized) with rows as genes and columns as cells}
 }
 \value{
-A list consists of: PCs; Loadings; Centers; batch.id for samples while performing SVD; Raw representing the input for SVD, which is a centered, combined, log, library-size normalized matrix; cells that are included and used for SVD; genes that are included and used for SVD.
+A list consists of: PCs; Loadings; Centers; batch.id for samples while performing SVD; Raw representing the input for SVD, which is a centered, combined, log, library-size normalized matrix; cells that are included and used for SVD; genes that are included and used for SVD
 }
 \description{
 Perform SVD
