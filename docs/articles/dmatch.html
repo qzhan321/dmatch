@@ -126,7 +126,7 @@ samples&lt;-<span class="kw"><a href="../reference/CreatedmatchObject.html">Crea
 ##the above code will return the path of the desired reference panel, then use the following code to load the desired reference panel.
 <span class="kw">load</span>(path)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##project the cells in the samples to the reference panel
-samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,<span class="dt">Reference =</span> cell.line)
+samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,<span class="dt">Reference =</span> cell.line,<span class="dt">use.genes.threshold =</span> <span class="fl">0.75</span>)
 ##visualize the projection result: recommended hclust method include: complete, ward.D, ward.D2
 samples&lt;-<span class="kw"><a href="../reference/projection_visualization.html">projection_visualization</a></span>(samples,<span class="dt">hclust.method =</span> <span class="st">"ward.D"</span>)</code></pre></div>
 <p><img src="projection.png" title="projection to the reference panel" alt="plot of chunk projection" style="display:block; margin: auto"></p>

@@ -83,7 +83,7 @@ load(path)
 
 ```{r eval=F}
 ##project the cells in the samples to the reference panel
-samples<-projection_to_reference_panel(samples,Reference = cell.line)
+samples<-projection_to_reference_panel(samples,Reference = cell.line,use.genes.threshold = 0.75)
 ##visualize the projection result: recommended hclust method include: complete, ward.D, ward.D2
 samples<-projection_visualization(samples,hclust.method = "ward.D")
 ```
