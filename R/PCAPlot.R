@@ -17,16 +17,16 @@ PCAPlot<-function(PCA, PCs.to.plot, batchs.to.plot, filename=NULL) {
   batch.id.forPC<-PCA$batch.id.forPC
   batch.id<-batch.id.forPC[batch.id.forPC %in% batchs.to.plot]
   
-  PC1 <- PCA$PCs[batch.id.forPC %in% batchs.to.plot, i]
-  PC2 <- PCA$PCs[batch.id.forPC %in% batchs.to.plot, j]
+  xx <- PCA$PCs[batch.id.forPC %in% batchs.to.plot, i]
+  yy <- PCA$PCs[batch.id.forPC %in% batchs.to.plot, j]
   
   if (is.null(filename)) {
-    plot(PC1, PC2, type = "n")
-    text(PC1, PC2, batch.id, col = batch.id, cex = 0.8)
+    plot(xx, yy, type = "n", xlab = paste0("PC", i), ylab = paste0("PC", j))
+    text(xx, yy, batch.id, col = batch.id, cex = 0.8)
   } else {
     png(filename, res = 400, height = 8, width = 8, unit = "in")
-    plot(PC1, PC2, type = "n")
-    text(PC1, PC2, batch.id, col = batch.id, cex = 0.8)
+    plot(xx, yy, type = "n", xlab = paste0("PC", i), ylab = paste0("PC", j))
+    text(xx, yy, batch.id, col = batch.id, cex = 0.8)
     dev.off()
   }
 }

@@ -4,16 +4,16 @@
 \alias{PCAPlot}
 \title{PCAPlot}
 \usage{
-PCAPlot(PCA, PCs.to.plot, filename)
+PCAPlot(PCA, PCs.to.plot, batchs.to.plot, filename = NULL)
 }
 \arguments{
 \item{PCA}{The output from fastSVD, i.e., the list returned by fastSVD function}
 
 \item{PCs.to.plot}{A vector indicates which two PCs to plot}
 
-\item{filename}{The path and name of the PCA plot returned, default value is NULL and the PCA plot is printed directly}
-
 \item{batchs.to.plot}{A vector indicates which batches of PCs to plot}
+
+\item{filename}{The path and name of the PCA plot returned, default value is NULL and the PCA plot is printed directly}
 }
 \value{
 Graphs the output of SVD results, colored by their batch id

@@ -48,8 +48,8 @@ PCA<-fastSVD(list(sample1,sample2))
 
 Inspect the PC plot of those samples:
 ```{r eval=F}
-##If set the filename to be **NULL**, the PC plot will be only printed to the screen
-PCAPlot(PCA = PCA, PCs.to.plot = c(1,2))
+##If set the filename to be **NULL**, the PC plot will be only printed to the screen; otherwise, the plot will be saved to the specified path.
+PCAPlot(PCA = PCA, PCs.to.plot = c(1,2), batchs.to.plot = c(1,2), filename = NULL, min.cells = 3, min.genes = 200)
 ```
 
 <img src="pc_plot.png" title="pc plot before correction" alt="plot of chunk pc_plot" style="display:block; margin: auto" style="display: block; margin: auto;" />
@@ -57,7 +57,8 @@ PCAPlot(PCA = PCA, PCs.to.plot = c(1,2))
 
 Create a dmatch class object, which contains slots to store multiple types of information for the samples. The input for raw.data is a list of samples and the second element in that list will be used as the reference sample. Recommend to select the sample which has more cells as the reference sample. Here sample1 and sample2 are raw read count expression matrices.
 ```{r eval=F}
-##batch.id here corresponds to the batch id assigned to each sample in **fastSVD** step
+##batch.id here corresponds to the batch id assigned to each sample in **fastSVD** step.
+##The first sample in the list will be to-be-corrected sample, the second sample in the list will be the reference sample.
 samples<-CreatedmatchObject(raw.data = list(sample2,sample1), batch.id = c(2,1), PCA = PCA)
 ```
 

@@ -5,7 +5,7 @@
 \title{projection_to_reference_panel}
 \usage{
 projection_to_reference_panel(object, Reference, CorMethod = "pearson",
-  use.genes.threshold = NULL)
+  use.genes.threshold = 0.75)
 }
 \arguments{
 \item{object}{A dmatch class object}

@@ -72,7 +72,7 @@
       <h1>An introduction to the dmatch package</h1>
                         <h4 class="author">Qi Zhan</h4>
             
-            <h4 class="date">09 Jun 2019</h4>
+            <h4 class="date">11 Jun 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/qzhan321/dmatch/blob/master/vignettes/dmatch.Rmd"><code>vignettes/dmatch.Rmd</code></a></small>
       <div class="hidden name"><code>dmatch.Rmd</code></div>
@@ -108,11 +108,12 @@ sample2&lt;-<span class="kw">read.csv</span>(<span class="kw">gzfile</span>(<spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCA&lt;-<span class="kw"><a href="../reference/fastSVD.html">fastSVD</a></span>(<span class="kw">list</span>(sample1,sample2))
 ##This step will assign a batch id for each sample in a sequential order. The first sample provided in the list will have batch id as 1, and the sample sample will have batch id as 2, etc.</code></pre></div>
 <p>Inspect the PC plot of those samples:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##If set the filename to be **NULL**, the PC plot will be only printed to the screen
-<span class="kw"><a href="../reference/PCAPlot.html">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##If set the filename to be **NULL**, the PC plot will be only printed to the screen; otherwise, the plot will be saved to the specified path.
+<span class="kw"><a href="../reference/PCAPlot.html">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">batchs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="ot">NULL</span>, <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.genes =</span> <span class="dv">200</span>)</code></pre></div>
 <p><img src="pc_plot.png" title="pc plot before correction" alt="plot of chunk pc_plot" style="display:block; margin: auto"></p>
 <p>Create a dmatch class object, which contains slots to store multiple types of information for the samples. The input for raw.data is a list of samples and the second element in that list will be used as the reference sample. Recommend to select the sample which has more cells as the reference sample. Here sample1 and sample2 are raw read count expression matrices.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch.id here corresponds to the batch id assigned to each sample in **fastSVD** step
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch.id here corresponds to the batch id assigned to each sample in **fastSVD** step.
+##The first sample in the list will be to-be-corrected sample, the second sample in the list will be the reference sample.
 samples&lt;-<span class="kw"><a href="../reference/CreatedmatchObject.html">CreatedmatchObject</a></span>(<span class="dt">raw.data =</span> <span class="kw">list</span>(sample2,sample1), <span class="dt">batch.id =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">PCA =</span> PCA)</code></pre></div>
 </div>
 <div id="identifying-nearest-neighbors-across-batches" class="section level1">
