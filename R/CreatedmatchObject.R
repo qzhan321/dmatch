@@ -1,4 +1,4 @@
-setClass("dmatch", representation(raw.data="data.frame", batch.id="vector", metadata="data.frame", PCA="list", project.name="character", Projection="list", Projection.visualization="list", cutgroups="list", select.clusters="list", run_alignment_by_2D.results="list", outcome.list="list"))
+setClass("dmatch", representation(raw.data="data.frame", batch.id="vector", metadata="data.frame", PCA="list", project.name="character", Projection="list", Projection.visualization="list", cut_groups="list", select.clusters="list", run_alignment_by_2D.results="list", outcome.list="list"))
 
 #suggest put the one which has more cells as the latter one in the list for raw.data
 
