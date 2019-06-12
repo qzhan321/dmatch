@@ -10,7 +10,7 @@
 #' @export
 select_clusters<-function(object, quantile=0.95) {
   require(MASS)
-  PCA<-objects@PCA
+  PCA<-object@PCA
   batch.id<-object@batch.id
   batch.id.forPC<-PCA$batch.id.forPC
   batch.id.update<-object@Projection$batch.id.update
