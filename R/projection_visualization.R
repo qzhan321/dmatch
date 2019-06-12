@@ -39,10 +39,12 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   if (is.null(filename)) {
     dist.method<-dist.method
     hclust.method<-hclust.method
-    aa<-heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
+    heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
               labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@metadata$batch)],
               key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
-    print(aa)
+    aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
+                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@metadata$batch)],
+                    key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
   } else {
     png(filename, res = 400, height = 8, width = 8, unit = "in")
     dist.method<-dist.method
