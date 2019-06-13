@@ -46,8 +46,10 @@ projection_to_reference_panel <- function(object, Reference, CorMethod = "pearso
     Data.use<-Data.use[,!(aa==0)]
     Reference<-Reference[,!(bb==0)]
     batch.id.update<-object@metadata$batch[!(aa==0)]
+    names(batch.id.update)<-(rownames(object@metadata))[!(aa==0)]
   } else {
     batch.id.update<-object@metadata$batch
+    names(batch.id.update)<-rownames(object@metadata)
   }
   
   logxx <- apply(Data.use[common, ], 2, function(x){
