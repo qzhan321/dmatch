@@ -10,7 +10,7 @@
 move_back_to_original_space <- function(object){
   batch.id<-object@batch.id
   
-  PCA<-objects@PCA
+  PCA<-object@PCA
   batch.id<-object@batch.id
   batch.id.forPC<-PCA$batch.id.forPC
   batch.id.update<-object@Projection$batch.id.update

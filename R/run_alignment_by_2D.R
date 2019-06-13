@@ -13,7 +13,7 @@
 run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL,
                                 Nclust = NULL, steps = 20, gra_steps = 10, NCell = 100){
   
-  PCA<-objects@PCA
+  PCA<-object@PCA
   batch.id<-object@batch.id
   batch.id.forPC<-PCA$batch.id.forPC
   batch.id.update<-object@Projection$batch.id.update
