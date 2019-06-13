@@ -23,8 +23,8 @@ run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL
   Data1 <- PCA$PCs[names(batch.id.update1),]
   Data2 <- PCA$PCs[names(batch.id.update2),]
   
-  Labels1 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[1]]
-  Labels2 <- object@Projection$CellType[object@Projection$batch.id.update==batch.id[2]]
+  Labels1 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[1]]
+  Labels2 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[2]]
   
   require(MASS)
   if(is.null(selected)){
