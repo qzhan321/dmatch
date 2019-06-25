@@ -72,7 +72,7 @@
       <h1>An introduction to the dmatch package</h1>
                         <h4 class="author">Qi Zhan</h4>
             
-            <h4 class="date">13 Jun 2019</h4>
+            <h4 class="date">25 Jun 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/qzhan321/dmatch/blob/master/vignettes/dmatch.Rmd"><code>vignettes/dmatch.Rmd</code></a></small>
       <div class="hidden name"><code>dmatch.Rmd</code></div>
@@ -105,16 +105,16 @@ sample2&lt;-<span class="kw">read.csv</span>(<span class="kw">gzfile</span>(<spa
 <span class="kw">colnames</span>(sample1)&lt;-<span class="kw">paste</span>(<span class="st">"sample1"</span>, <span class="kw">colnames</span>(sample1), <span class="dt">sep =</span> <span class="st">"_"</span>)
 <span class="kw">colnames</span>(sample2)&lt;-<span class="kw">paste</span>(<span class="st">"sample2"</span>, <span class="kw">colnames</span>(sample2), <span class="dt">sep =</span> <span class="st">"_"</span>)</code></pre></div>
 <p>We use SVD to perform PCA for better computational efficiency. By default, we employ a global-scaling normalization method “LogNormalize” that normalizes the feature expression measurements for each cell by the total expression, multiplies this by a scale factor (1000000), and log-transforms the result.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCA&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/fastSVD">fastSVD</a></span>(<span class="kw">list</span>(sample1,sample2))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCA&lt;-<span class="kw"><a href="../reference/fastSVD.html">fastSVD</a></span>(<span class="kw">list</span>(sample1,sample2), <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.genes =</span> <span class="dv">200</span>)
 ##This step will assign a batch id for each sample in a sequential order. The first sample provided in the list will have batch id as 1, and the sample sample will have batch id as 2, etc.</code></pre></div>
 <p>Inspect the PC plot of those samples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##If set the filename to be **NULL**, the PC plot will be only printed to the screen; otherwise, the plot will be saved to the specified path.
-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/PCAPlot">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">batchs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="ot">NULL</span>, <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.genes =</span> <span class="dv">200</span>)</code></pre></div>
+<span class="kw"><a href="../reference/PCAPlot.html">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">batchs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="ot">NULL</span>)</code></pre></div>
 <p><img src="pc_plot.png" title="pc plot before correction" alt="plot of chunk pc_plot" style="display:block; margin: auto"></p>
 <p>Create a dmatch class object, which contains slots to store multiple types of information for the samples. The input for raw.data is a list of samples and the second element in that list will be used as the reference sample. Recommend to select the sample which has more cells as the reference sample. Here sample1 and sample2 are raw read count expression matrices.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch.id here corresponds to the batch id assigned to each sample in **fastSVD** step.
 ##The first sample in the list will be to-be-corrected sample, the second sample in the list will be the reference sample.
-samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/CreatedmatchObject">CreatedmatchObject</a></span>(<span class="dt">raw.data =</span> <span class="kw">list</span>(sample2,sample1), <span class="dt">batch.id =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">PCA =</span> PCA)</code></pre></div>
+samples&lt;-<span class="kw"><a href="../reference/CreatedmatchObject.html">CreatedmatchObject</a></span>(<span class="dt">raw.data =</span> <span class="kw">list</span>(sample2,sample1), <span class="dt">batch.id =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">PCA =</span> PCA)</code></pre></div>
 </div>
 <div id="identifying-nearest-neighbors-across-batches" class="section level1">
 <h1 class="hasAnchor">
@@ -126,15 +126,15 @@ samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dma
 ##the above code will return the path of the desired reference panel, then use the following code to load the desired reference panel.
 <span class="kw">load</span>(path)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##project the cells in the samples to the reference panel
-samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/projection_to_reference_panel">projection_to_reference_panel</a></span>(samples,<span class="dt">Reference =</span> cell.line,<span class="dt">use.genes.threshold =</span> <span class="fl">0.75</span>)
+samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,<span class="dt">Reference =</span> cell.line,<span class="dt">use.genes.threshold =</span> <span class="fl">0.75</span>)
 ##visualize the projection result: recommended hclust method include: complete, ward.D, ward.D2
-samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/projection_visualization">projection_visualization</a></span>(samples,<span class="dt">hclust.method =</span> <span class="st">"ward.D"</span>)</code></pre></div>
+samples&lt;-<span class="kw"><a href="../reference/projection_visualization.html">projection_visualization</a></span>(samples,<span class="dt">hclust.method =</span> <span class="st">"ward.D"</span>)</code></pre></div>
 <p><img src="projection.png" title="projection to the reference panel" alt="plot of chunk projection" style="display:block; margin: auto"></p>
 <p>We then cut the clusters into separate cell types and select some clusters to study batch effects based on the number of cells in those clusters (ideally, no less than <strong>5% of the total number of cells in that sample</strong>) and the shapiro test results (<strong>lower/lowest shapiro pvalue relatively</strong>) of those clusters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##there are three major cell types in the visualization plot of the projection result 
-samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/cut_groups">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">5</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)
+samples&lt;-<span class="kw"><a href="../reference/cut_groups.html">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">5</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)
 ##select clusters which have enough cells and which have low transformed shapiro pvalue; recomended quantile includes: 0.90,0.95,0.98
-samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/select_clusters">select_clusters</a></span>(samples, <span class="dt">quantile =</span> <span class="fl">0.98</span>)
+samples&lt;-<span class="kw"><a href="../reference/select_clusters.html">select_clusters</a></span>(samples, <span class="dt">quantile =</span> <span class="fl">0.98</span>)
 ##the results will be stored in select.clusters slot</code></pre></div>
 <p>To inspect the cell numbers of each cluster and the result of shapiro test:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples@select.clusters$cells.num
@@ -146,20 +146,20 @@ samples@select.clusters$shapiro.test.pvalue</code></pre></div>
 <h1 class="hasAnchor">
 <a href="#batch-effects-correction" class="anchor"></a>Batch effects correction</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch effects correction: recommended quantile includes: 0.90,0.95,0.98
-samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/run_alignment_by_2D">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">quantile =</span> <span class="fl">0.98</span>)
+samples&lt;-<span class="kw"><a href="../reference/run_alignment_by_2D.html">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">quantile =</span> <span class="fl">0.98</span>)
 
 When the quantile is too high, the following error will be returned:
 quantile must be at most %d
 The solution is to lower the quantile.
 
 ##visualize the corrected data, selecting PC1 and PC2, and all cell clusters in the samples
-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/plot_corrected">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))
+<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))
 ##also can inspect the corrected data selecting less cell clusters
-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/plot_corrected">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>))
+<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>))
 ##if we set the filename to be **NULL**, then the plots before correction and after correction will be printed on the screen directly. </code></pre></div>
 <p><img src="plot_corrected.png" title="plot corrected data with all cell clusters" alt="plot of corrected data" style="display:block; margin: auto"><img src="plot_corrected_single.png" title="plot corrected data with a single cell cluster" alt="plot of corrected data" style="display:block; margin: auto"></p>
 <p>Once we are satisfied with the results of batch effects correction in the previous step, we now move the low-dimensional data in PC space to the original high-dimensional space. The corrected sample and the reference sample are stored in the <strong>outcome.list</strong> slot of the object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="http://www.rdocumentation.org/packages/dmatch/topics/move_back_to_original_space">move_back_to_original_space</a></span>(samples)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="../reference/move_back_to_original_space.html">move_back_to_original_space</a></span>(samples)</code></pre></div>
 </div>
   </div>
 
