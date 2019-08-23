@@ -22,8 +22,10 @@ samples<-projection_visualization(samples,hclust.method = "ward.D", filename = "
 
 samples<-cut_groups(samples,K=5, method = "ward.D")
 samples<-select_clusters(samples, quantile = 0.98)
-samples@select.clusters$cells.num
-samples@select.clusters$shapiro.test.pvalue
+cells.num<-samples@select.clusters$cells.num
+save(cells.num, file = "select_clusters_cells_number")
+shapiro.result<-samples@select.clusters$shapiro.test.pvalue
+save(shapiro.result, file = "select_clusters_shapiro_result")
 
 samples<-run_alignment_by_2D(samples, selected = c(3,4), quantile = 0.98)
 plot_corrected(samples, pcs.plot = c(1:2), celltypes.plot = c(1,2,3,4,5), filename = "plot_corrected_all.png")
