@@ -23,7 +23,7 @@ For a quick start, visit our website to see a tutorial with examples and detaile
 https://qzhan321.github.io/dmatch.
 
 ### Contact us
-If you have any enquires, especially about performing dmatch integration on your data, then please contact
+If you have any enquires, especially about performing dmatch integration on your data, please contact
 **Qi Zhan** (UChicago) qizhan@uchicago.edu
 
 
