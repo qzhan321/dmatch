@@ -21,6 +21,7 @@ devtools::install_github("qzhan321/dmatch")
 ### Quick start
 For a quick start, visit our website to see a tutorial with examples and detailed functions illustrating the usage of **dmatch** at:
 https://qzhan321.github.io/dmatch.
+The R script for the example analysis pipeline can be downloaded  from: https://github.com/qzhan321/dmatch/ExamplePipeline.R.
 
 ### Contact us
 If you have any enquires, especially about performing dmatch integration on your data, please contact
