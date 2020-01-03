@@ -6,14 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>An introduction to the dmatch package • dmatch</title>
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js" integrity="sha256-hIvIxeqhGZF+VVeM55k0mJvWpQ6gTkWk3Emc+NmowYA=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="An introduction to the dmatch package">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dmatch</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.8</span>
       </span>
     </div>
 
@@ -66,13 +66,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>An introduction to the dmatch package</h1>
                         <h4 class="author">Qi Zhan</h4>
             
-            <h4 class="date">25 Jun 2019</h4>
+            <h4 class="date">02 Jan 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/qzhan321/dmatch/blob/master/vignettes/dmatch.Rmd"><code>vignettes/dmatch.Rmd</code></a></small>
       <div class="hidden name"><code>dmatch.Rmd</code></div>
@@ -96,25 +97,25 @@
 <h1 class="hasAnchor">
 <a href="#loading-packages-and-data" class="anchor"></a>Loading Packages and Data</h1>
 <p>We will load the <code>dmatch</code> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>({
-  <span class="kw">library</span>(dmatch)
-})</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>({</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dmatch)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">})</a></code></pre></div>
 <p>We selected HC1 PBMC sample (raw read count format) and SLE BMMC sample (raw read count format) for illustration in this tutorial. Warning: make sure that the cell names are consistent for fastSVD funtion and CreatedmatchObject.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample1&lt;-<span class="kw">read.csv</span>(<span class="kw">gzfile</span>(<span class="st">"HC1_PBMC.barcode_gene.csv.names.gz"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">header =</span> T)
-sample2&lt;-<span class="kw">read.csv</span>(<span class="kw">gzfile</span>(<span class="st">"SLE_BMMC.barcode_gene.csv.names.gz"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">header =</span> T)
-<span class="kw">colnames</span>(sample1)&lt;-<span class="kw">paste</span>(<span class="st">"sample1"</span>, <span class="kw">colnames</span>(sample1), <span class="dt">sep =</span> <span class="st">"_"</span>)
-<span class="kw">colnames</span>(sample2)&lt;-<span class="kw">paste</span>(<span class="st">"sample2"</span>, <span class="kw">colnames</span>(sample2), <span class="dt">sep =</span> <span class="st">"_"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">sample1&lt;-<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/connections.html">gzfile</a></span>(<span class="st">"HC1_PBMC.barcode_gene.csv.names.gz"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">header =</span> T)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">sample2&lt;-<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/connections.html">gzfile</a></span>(<span class="st">"SLE_BMMC.barcode_gene.csv.names.gz"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">header =</span> T)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sample1)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"sample1"</span>, <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sample1), <span class="dt">sep =</span> <span class="st">"_"</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sample2)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"sample2"</span>, <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sample2), <span class="dt">sep =</span> <span class="st">"_"</span>)</a></code></pre></div>
 <p>We use SVD to perform PCA for better computational efficiency. By default, we employ a global-scaling normalization method “LogNormalize” that normalizes the feature expression measurements for each cell by the total expression, multiplies this by a scale factor (1000000), and log-transforms the result.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCA&lt;-<span class="kw"><a href="../reference/fastSVD.html">fastSVD</a></span>(<span class="kw">list</span>(sample1,sample2), <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.genes =</span> <span class="dv">200</span>)
-##This step will assign a batch id for each sample in a sequential order. The first sample provided in the list will have batch id as 1, and the sample sample will have batch id as 2, etc.</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">PCA&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/fastSVD.html">fastSVD</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(sample1,sample2), <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.genes =</span> <span class="dv">200</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">##This step will assign a batch id for each sample in a sequential order. The first sample provided in the list will have batch id as 1, and the sample sample will have batch id as 2, etc.</span></a></code></pre></div>
 <p>Inspect the PC plot of those samples:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##If set the filename to be **NULL**, the PC plot will be only printed to the screen; otherwise, the plot will be saved to the specified path.
-<span class="kw"><a href="../reference/PCAPlot.html">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">batchs.to.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="ot">NULL</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">##If set the filename to be **NULL**, the PC plot will be only printed to the screen; otherwise, the plot will be saved to the specified path.</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/PCAPlot.html">PCAPlot</a></span>(<span class="dt">PCA =</span> PCA, <span class="dt">PCs.to.plot =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">batchs.to.plot =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">filename =</span> <span class="ot">NULL</span>)</a></code></pre></div>
 <p><img src="pc_plot.png" title="pc plot before correction" alt="plot of chunk pc_plot" style="display:block; margin: auto"></p>
 <p>Create a dmatch class object, which contains slots to store multiple types of information for the samples. The input for raw.data is a list of samples and the second element in that list will be used as the reference sample. Recommend to select the sample which has more cells as the reference sample. Here sample1 and sample2 are raw read count expression matrices.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch.id here corresponds to the batch id assigned to each sample in **fastSVD** step.
-##The first sample in the list will be to-be-corrected sample, the second sample in the list will be the reference sample.
-samples&lt;-<span class="kw"><a href="../reference/CreatedmatchObject.html">CreatedmatchObject</a></span>(<span class="dt">raw.data =</span> <span class="kw">list</span>(sample2,sample1), <span class="dt">batch.id =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">PCA =</span> PCA)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">##batch.id here corresponds to the batch id assigned to each sample in **fastSVD** step.</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">##The first sample in the list will be to-be-corrected sample, the second sample in the list will be the reference sample.</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">samples&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/CreatedmatchObject.html">CreatedmatchObject</a></span>(<span class="dt">raw.data =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(sample2,sample1), <span class="dt">batch.id =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">PCA =</span> PCA)</a></code></pre></div>
 </div>
 <div id="identifying-nearest-neighbors-across-batches" class="section level1">
 <h1 class="hasAnchor">
@@ -122,48 +123,49 @@ samples&lt;-<span class="kw"><a href="../reference/CreatedmatchObject.html">Crea
 <p>We introduce external information, a reference panel, which is composed of 95 primary cell lines and ~5000 genes to identify separate cell clusters in the samples. The reference panel is a 44 meta-analysis of a large number of publicly available microarray datasets.</p>
 <p>Those cell types in the reference panel do not necessarily represent the true biological cell types. The reference panel contains detailed and rich information to identify separate clusters in experimental datasets. Cells from different samples/batches which are highly correlated to the same cell type in the reference panel are the nearest neighbors across samples/batches.</p>
 <p>Load the reference panel We provided two versions of the reference panel which use different gene naming systems: cell.line.to.ensl.ID and cell_atlas_ref_panel</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path&lt;-<span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"cell_atlas_ref_panel"</span>, <span class="dt">package =</span> <span class="st">"dmatch"</span>)
-##the above code will return the path of the desired reference panel, then use the following code to load the desired reference panel.
-<span class="kw">load</span>(path)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##project the cells in the samples to the reference panel
-samples&lt;-<span class="kw"><a href="../reference/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,<span class="dt">Reference =</span> cell.line,<span class="dt">use.genes.threshold =</span> <span class="fl">0.75</span>)
-##visualize the projection result: recommended hclust method include: complete, ward.D, ward.D2
-samples&lt;-<span class="kw"><a href="../reference/projection_visualization.html">projection_visualization</a></span>(samples,<span class="dt">hclust.method =</span> <span class="st">"ward.D"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">path&lt;-<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"cell_atlas_ref_panel"</span>, <span class="dt">package =</span> <span class="st">"dmatch"</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">##the above code will return the path of the desired reference panel, then use the following code to load the desired reference panel.</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/load.html">load</a></span>(path)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">##project the cells in the samples to the reference panel</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">samples&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/projection_to_reference_panel.html">projection_to_reference_panel</a></span>(samples,<span class="dt">Reference =</span> cell.line,<span class="dt">use.genes.threshold =</span> <span class="fl">0.75</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">##visualize the projection result: recommended hclust method include: complete, ward.D, ward.D2</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">samples&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/projection_visualization.html">projection_visualization</a></span>(samples,<span class="dt">hclust.method =</span> <span class="st">"ward.D"</span>)</a></code></pre></div>
 <p><img src="projection.png" title="projection to the reference panel" alt="plot of chunk projection" style="display:block; margin: auto"></p>
 <p>We then cut the clusters into separate cell types and select some clusters to study batch effects based on the number of cells in those clusters (ideally, no less than <strong>5% of the total number of cells in that sample</strong>) and the shapiro test results (<strong>lower/lowest shapiro pvalue relatively</strong>) of those clusters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##there are three major cell types in the visualization plot of the projection result 
-samples&lt;-<span class="kw"><a href="../reference/cut_groups.html">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">5</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)
-##select clusters which have enough cells and which have low transformed shapiro pvalue; recomended quantile includes: 0.90,0.95,0.98
-samples&lt;-<span class="kw"><a href="../reference/select_clusters.html">select_clusters</a></span>(samples, <span class="dt">quantile =</span> <span class="fl">0.98</span>)
-##the results will be stored in select.clusters slot</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">##there are three major cell types in the visualization plot of the projection result </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">samples&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/cut_groups.html">cut_groups</a></span>(samples,<span class="dt">K=</span><span class="dv">5</span>, <span class="dt">method =</span> <span class="st">"ward.D"</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">##select clusters which have enough cells and which have low transformed shapiro pvalue; recomended quantile includes: 0.90,0.95,0.98</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">samples&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/select_clusters.html">select_clusters</a></span>(samples, <span class="dt">quantile =</span> <span class="fl">0.98</span>)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">##the results will be stored in select.clusters slot</span></a></code></pre></div>
 <p>To inspect the cell numbers of each cluster and the result of shapiro test:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples@select.clusters$cells.num
-samples@select.clusters$shapiro.test.pvalue</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">samples<span class="op">@</span>select.clusters<span class="op">$</span>cells.num</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">samples<span class="op">@</span>select.clusters<span class="op">$</span>shapiro.test.pvalue</a></code></pre></div>
 <p><img src="shapiro_test.png" title="plot shapiro_test results" alt="plot of shapiro_test" style="display:block; margin: auto"></p>
 <p>We would select cell cluster 3 and 4 as the reference clusters.</p>
 </div>
 <div id="batch-effects-correction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#batch-effects-correction" class="anchor"></a>Batch effects correction</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##batch effects correction: recommended quantile includes: 0.90,0.95,0.98
-samples&lt;-<span class="kw"><a href="../reference/run_alignment_by_2D.html">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">quantile =</span> <span class="fl">0.98</span>)
-
-When the quantile is too high, the following error will be returned:
-quantile must be at most %d
-The solution is to lower the quantile.
-
-##visualize the corrected data, selecting PC1 and PC2, and all cell clusters in the samples
-<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))
-##also can inspect the corrected data selecting less cell clusters
-<span class="kw"><a href="../reference/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw">c</span>(<span class="dv">3</span>))
-##if we set the filename to be **NULL**, then the plots before correction and after correction will be printed on the screen directly. </code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">##batch effects correction: recommended quantile includes: 0.90,0.95,0.98</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">samples&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/run_alignment_by_2D.html">run_alignment_by_2D</a></span>(samples, <span class="dt">selected =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">quantile =</span> <span class="fl">0.98</span>)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">When the quantile is too high, the following error will be returned<span class="op">:</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">quantile must be at most %d</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">The solution is to lower the quantile.</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">##visualize the corrected data, selecting PC1 and PC2, and all cell clusters in the samples</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">##also can inspect the corrected data selecting less cell clusters</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/plot_corrected.html">plot_corrected</a></span>(samples, <span class="dt">pcs.plot =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>), <span class="dt">celltypes.plot =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">##if we set the filename to be **NULL**, then the plots before correction and after correction will be printed on the screen directly. </span></a></code></pre></div>
 <p><img src="plot_corrected.png" title="plot corrected data with all cell clusters" alt="plot of corrected data" style="display:block; margin: auto"><img src="plot_corrected_single.png" title="plot corrected data with a single cell cluster" alt="plot of corrected data" style="display:block; margin: auto"></p>
 <p>Once we are satisfied with the results of batch effects correction in the previous step, we now move the low-dimensional data in PC space to the original high-dimensional space. The corrected sample and the reference sample are stored in the <strong>outcome.list</strong> slot of the object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples&lt;-<span class="kw"><a href="../reference/move_back_to_original_space.html">move_back_to_original_space</a></span>(samples)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">samples&lt;-<span class="kw"><a href="https://rdrr.io/pkg/dmatch/man/move_back_to_original_space.html">move_back_to_original_space</a></span>(samples)</a></code></pre></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -179,18 +181,20 @@ The solution is to lower the quantile.
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Mengjie Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
