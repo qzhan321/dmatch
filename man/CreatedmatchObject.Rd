@@ -4,23 +4,27 @@
 \alias{CreatedmatchObject}
 \title{CreatedmatchObject}
 \usage{
-CreatedmatchObject(raw.data, batch.id, project = "dmatchProject",
-  PCA = PCA)
+CreatedmatchObject(
+  pairwiseSample.list,
+  batch.id,
+  project = "dmatchProject",
+  PCA = PCA
+)
 }
 \arguments{
-\item{raw.data}{A list of pairwise samples for batch effects correction, each of which is a raw read count dataset}
+\item{pairwiseSample.list}{Same as the input pairwiseSample.list, or subset of the pairwiseSample.list, for fastSVD. A list of pairwise samples for batch effects correction, each of which is a raw read count dataset. Alternatively, those samples can be the preprocessed and Lognormalized ones; then need to specify no preprocessing and no LogNormalize in the next step projection_to_reference_panel.}
 
-\item{batch.id}{Batch.ids which are used to denote those two samples in the previous fastSVD step}
+\item{batch.id}{Batch.ids which are used to denote those two samples in the previous fastSVD step.}
 
-\item{project}{Project name (string)}
+\item{project}{Project name (string).}
 
-\item{PCA}{The output from fastSVD, i.e., the list returned by fastSVD function}
+\item{PCA}{The output from fastSVD, i.e., the list returned by fastSVD function.}
 }
 \value{
-Initializes the dmatch object. Return a dmatch class object which have slots storing raw.data, batch.id, PCA, and etc. This step only includes the cells and genes used in fastSVD step for the samples provided in the raw.data
+Initializes the dmatch object. Return a dmatch class object which have slots storing pairwiseSample.list, batch.id, PCA, and etc. This step only includes the cells and genes used in fastSVD step for the samples provided in the pairwiseSample.list.
 }
 \description{
-Create a dmatch class object
+Create a dmatch class object. It is common to correct batch effects for more than two samples. We can run fastSVD with all those samples (as a list) at once. From this step on, we correct batch effects for pairwise samples at a time. We recommend to use the same dataset (sample) which has the most cells as the reference sample, and use this same reference sample to align the rest samples one at a time. The reference sample will be the latter in the pairwisepairwiseSample.list.
 }
 \author{
 Mengjie Chen, Qi Zhan

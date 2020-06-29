@@ -1,19 +1,25 @@
 #' projection_to_reference_panel
 #'
-#' Project the pairwise to the reference panel to identify separate clusters in the samples
+#' Project the pairwise samples to the reference panel to identify separate clusters in them.
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param object A dmatch class object
-#' @param Reference The reference panel
-#' @param CorMethod A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson"
-#' @param use.genes.threshold The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel
-#' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update 
+#' @param object A dmatch class object.
+#' @param Reference The reference panel.
+#' @param LogNormalize Whether to perform LogNormalize on the pairwise samples. If the pairwiseSample.list in CreatedmatchObject are already LogNormalized, then set LogNormalize to be FALSE here.
+#' @param CorMethod A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson".
+#' @param use.genes.threshold The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel.
+#' @return A dmatch class object which have slots storing pairwiseSample.list, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update. 
 #' @export
-projection_to_reference_panel <- function(object, Reference, CorMethod = "pearson", use.genes.threshold=0.75){
-  data<-object@raw.data
-  data_norm<-apply(data,2,function(x) x/(sum(x)+0.0001))
-  data_libsize<-apply(data_norm,2,function(x) x*1000000)
+projection_to_reference_panel <- function(object, Reference, LogNormalize = T, CorMethod = "pearson", use.genes.threshold=0.75){
+  data<-object@pairwiseSample.list
+  if (LogNormalize == T) {
+    data_norm<-apply(data,2,function(x) x/(sum(x)+0.0001))
+    data_libsize<-apply(data_norm,2,function(x) x*1000000)
+  } else {
+    data_libsize <- data
+  }
+  
   
   if (!is.null(use.genes.threshold)) {
     gene.expr.mean<-apply(data_libsize,1,function(x) mean(x))
@@ -23,8 +29,8 @@ projection_to_reference_panel <- function(object, Reference, CorMethod = "pearso
     colnames(gene.expr.LogVMR)<-c("LogVMR")
     rownames(gene.expr.LogVMR)<-rownames(data_libsize)
     data_final<-cbind(data_libsize, gene.expr.LogVMR)
-    gene_LogVMR_threshold<-quantile(data_final[,ncol(data_final)], use.genes.threshold)
-    data_final_filter_LogVMR<-data_final[data_final[,(ncol(data_final))]>=gene_LogVMR_threshold,]
+    gene_LogVMR_threshold<-quantile(data_final[,"LogVMR"], use.genes.threshold)
+    data_final_filter_LogVMR<-data_final[data_final[,"LogVMR"]>=gene_LogVMR_threshold,]
     genes.use<-rownames(data_final_filter_LogVMR)
     Data.use<-data_libsize[genes.use,]
   } else {
@@ -65,15 +71,18 @@ projection_to_reference_panel <- function(object, Reference, CorMethod = "pearso
   
   cor.mat <- matrix(0, nrow = n, ncol = m)
   
-  for(j in 1:m){
-    for(i in 1:n){
-      cor.mat[i, j] <- cor(logxx[, i], selected.cell.line[, j], method = CorMethod)
-    }
-  }
-  rownames(cor.mat) <- colnames(Data.use)
-  colnames(cor.mat) <- colnames(Reference)
+  #for(j in 1:m){
+  #  for(i in 1:n){
+  #    cor.mat[i, j] <- cor(logxx[, i], selected.cell.line[, j], method = CorMethod)
+  #  }
+  #}
+  cor.mat[i,j] <- cor(logxx, selected.cell.line, method = CorMethod)
+  
   ReferenceNames <- colnames(Reference) 
   SampleNames <- colnames(Data.use)
+  rownames(cor.mat) <- ReferenceNames
+  colnames(cor.mat) <- SampleNames
+
   object@Projection <- list("cor.mat"=cor.mat, "ReferenceNames"=ReferenceNames, "SampleNames"=SampleNames, "batch.id.update"=batch.id.update)
   return(object)
 }

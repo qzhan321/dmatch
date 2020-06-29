@@ -4,23 +4,30 @@
 \alias{projection_to_reference_panel}
 \title{projection_to_reference_panel}
 \usage{
-projection_to_reference_panel(object, Reference, CorMethod = "pearson",
-  use.genes.threshold = 0.75)
+projection_to_reference_panel(
+  object,
+  Reference,
+  LogNormalize = T,
+  CorMethod = "pearson",
+  use.genes.threshold = 0.75
+)
 }
 \arguments{
-\item{object}{A dmatch class object}
+\item{object}{A dmatch class object.}
 
-\item{Reference}{The reference panel}
+\item{Reference}{The reference panel.}
 
-\item{CorMethod}{A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson"}
+\item{LogNormalize}{Whether to perform LogNormalize on the pairwise samples. If the pairwiseSample.list in CreatedmatchObject are already LogNormalized, then set LogNormalize to be FALSE here.}
 
-\item{use.genes.threshold}{The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel}
+\item{CorMethod}{A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson".}
+
+\item{use.genes.threshold}{The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel.}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update
+A dmatch class object which have slots storing pairwiseSample.list, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update.
 }
 \description{
-Project the pairwise to the reference panel to identify separate clusters in the samples
+Project the pairwise samples to the reference panel to identify separate clusters in them.
 }
 \author{
 Mengjie Chen, Qi Zhan

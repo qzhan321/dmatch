@@ -1,13 +1,15 @@
 #' run_alignment_by_2D
 #'
-#' Correct batch effects
+#' Correct batch effects.
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
-#' @param object A dmatch class object
-#' @param K The number of PCs for correcting batch effects, default is 30
-#' @param NCell The smallest number of cells that a selected cluster (as anchors) should have. Default is 100, and recommend no less than 5 percent of the sample size
-#' @return A dmatch class object which has slots storing raw.data, batch.id, PCA, and more information. Specfically, run_alignment_by_2D.results slot stores information for the reference sample, the original and corrected version of the other sample, and the celltype labels for both samples 
+#' @param object A dmatch class object.
+#' @param K The number of PCs for correcting batch effects, default is 30.
+#' @param quantile The minimum number of the data points regarded as good points.
+#' @param selected The clusters which are used as anchors to study batch effects.
+#' @param NCell The smallest number of cells that a selected cluster (as anchors) should have. Default is 100, and recommend no less than 5 percent of the sample size.
+#' @return A dmatch class object which has slots storing raw.data, batch.id, PCA, and more information. Specfically, run_alignment_by_2D.results slot stores information for the reference sample, the original and corrected version of the other sample, and the celltype labels for both samples. 
 #' @export
 
 run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL,

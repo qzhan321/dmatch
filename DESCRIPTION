@@ -14,7 +14,7 @@ LinkingTo: Rcpp, RcppArmadillo, mvtnorm, RcppEigen
 Imports: Rcpp, RcppArmadillo, mvtnorm, irlba, RcppEigen
 NeedsCompilation: yes
 Packaged: 2019-02-09 20:45:35 UTC; qizhan
-RoxygenNote: 6.1.0
+RoxygenNote: 7.1.1
 Author: Mengjie Chen [aut, cre]
 URL: https://github.com/qzhan321/dmatch
 BugReports: https://github.com/qzhan321/dmatch/issues
