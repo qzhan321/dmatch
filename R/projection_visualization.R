@@ -19,12 +19,14 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   ReferenceNames <- object@Projection$ReferenceNames
   SampleNames <- object@Projection$SampleNames
   
+  cutoffs <- c()
   weights.mat <- apply(Projected, 1, function(x){
     y <- x
     cutoff <- x[order(x, decreasing=T)[TopCellLineNumber]]
     if (cutoff < cor.threshold) {
       stop(paste("The correlation between some cells in the data and the last TopCellLine is low which will result in an unrealible identification of clusters in the data. Recomend to use less TopCellLines."))
-    } 
+    }
+    cutoffs <- c(cutoffs, cutoff)
     y[which(x<cutoff)] <- 0
     y
   })
@@ -54,7 +56,7 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
     dist.method<-dist.method
     hclust.method<-hclust.method
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
-                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@metadata$batch)],
+                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@Projection$batch.id.update)],
                     key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
     dev.off()
     # bb <- rev(aa$colInd)
@@ -63,7 +65,7 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   bbb = kkk[flag, ]
   rownames(bbb) = ReferenceNames[flag]
   colnames(bbb) = SampleNames
-  object@Projection.visualization<-list("Weight.max" = bbb, "ProjectionHeatmap" = aa)
+  object@Projection.visualization<-list("Weight.max" = bbb, "ProjectionHeatmap" = aa, "cutoffs" = cutoffs)
   
   return(object)
 }

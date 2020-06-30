@@ -15,6 +15,7 @@ cut_groups <- function(object, K, method="ward.D"){
   dd <- dist(t(WeightMat))
   ee <- hclust(dd, method)
   groups <- cutree(ee, k=K)
+  #cutoffs <- object@Projection.visualization$cutoffs
   object@cut_groups<-list("CellType"=groups, "batch.id_update"=object@Projection$batch.id.update)
   return(object)
 }
