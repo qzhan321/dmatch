@@ -19,6 +19,8 @@ fastSVD(
 
 \item{min.genes}{Include cells which at least this many genes are expressed; recommend filtering out cells with less than 200 genes expressed.}
 
+\item{LogNormalize}{Whether to perform LogNormalize before running SVD.}
+
 \item{sample.list}{A list of input datasets, each of which is a read count matrix with rows as genes and columns as cells.}
 }
 \value{

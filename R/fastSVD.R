@@ -9,6 +9,7 @@
 #' @param nPC Total number of PCs to compute and store (30 by default).
 #' @param min.cells Include genes expressed in at least this many cells; recommend filtering out genes expressed in less than 5 percent cells.
 #' @param min.genes Include cells which at least this many genes are expressed; recommend filtering out cells with less than 200 genes expressed.
+#' @param LogNormalize Whether to perform LogNormalize before running SVD.
 #' @return A list consists of: PCs; Loadings; Centers; batch.id for samples while performing SVD; Raw representing the input for SVD, which is a centered, combined, log, library-size normalized matrix; cells that are included and used for SVD; genes that are included and used for SVD.
 #' @export
 
@@ -34,7 +35,7 @@ fastSVD <- function(samples.list, nPC = 30, min.cells=NULL, min.genes=NULL, LogN
   
   names(batch.id)<-colnames(alldata)
   
-  if (logNormalize == T) {
+  if (LogNormalize == T) {
     alldata_norm <- apply(alldata, 2, function(x) x/sum(x))
     alldata_libsize <- apply(alldata_norm, 2, function(x) x*1000000)
     alldata_log <- apply(alldata_libsize, 2, function(x) log2(x+1))
