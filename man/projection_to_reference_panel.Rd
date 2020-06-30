@@ -21,7 +21,7 @@ projection_to_reference_panel(
 
 \item{CorMethod}{A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson".}
 
-\item{use.genes.threshold}{The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel.}
+\item{use.genes.threshold}{The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel (quantile).}
 }
 \value{
 A dmatch class object which have slots storing pairwiseSample.list, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update.

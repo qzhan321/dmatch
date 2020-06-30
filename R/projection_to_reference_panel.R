@@ -8,7 +8,7 @@
 #' @param Reference The reference panel.
 #' @param LogNormalize Whether to perform LogNormalize on the pairwise samples. If the pairwiseSample.list in CreatedmatchObject are already LogNormalized, then set LogNormalize to be FALSE here.
 #' @param CorMethod A character string indicating which correlation coefficient (or covariance) is to be computed. Default is "pearson".
-#' @param use.genes.threshold The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel.
+#' @param use.genes.threshold The threshold for highly variable genes used for calculating the Pearson Correlation between cells in the samples and the primary cell lines in the reference panel (quantile).
 #' @return A dmatch class object which have slots storing pairwiseSample.list, batch.id, PCA, and more information. Specifically, Projection slot stores information for the correlation matrix of cells in the samples and cells in the reference panel. The correlation matrix is calculated using the common genes in the samples and the reference. Cells in the samples which have zero expression across those common genes will be filtered out. The new batch.id for the remaining cells in the reference is in batch.id.update. 
 #' @export
 projection_to_reference_panel <- function(object, Reference, LogNormalize = T, CorMethod = "pearson", use.genes.threshold=0.75){
@@ -76,7 +76,7 @@ projection_to_reference_panel <- function(object, Reference, LogNormalize = T, C
   #    cor.mat[i, j] <- cor(logxx[, i], selected.cell.line[, j], method = CorMethod)
   #  }
   #}
-  cor.mat[i,j] <- cor(logxx, selected.cell.line, method = CorMethod)
+  cor.mat <- cor(logxx, selected.cell.line, method = CorMethod)
   
   ReferenceNames <- colnames(Reference) 
   SampleNames <- colnames(Data.use)
