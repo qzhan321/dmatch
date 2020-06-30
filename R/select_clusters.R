@@ -79,7 +79,6 @@ select_clusters<-function(object, quantile=0.95) {
 
 
 call_shapiro.test <- function(pc.data, labels, quantile) {
-  shapiros<-NULL
   for (j in 1:length(unique(labels))) {
     if (length(pc.data[labels==j])<3) {
       shapiro<-list("p.value"=NA)
@@ -95,7 +94,7 @@ call_shapiro.test <- function(pc.data, labels, quantile) {
         shapiro<-shapiro.test(mm) 
       }
     }
-    shapiros<-c(shapiros,shapiro$p.value)
+    return(shapiro$p.value)
   }
 }
 
