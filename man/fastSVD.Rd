@@ -15,7 +15,7 @@ fastSVD(
 \arguments{
 \item{nPC}{Total number of PCs to compute and store (30 by default).}
 
-\item{min.cells}{Include genes expressed in at least this many cells; recommend filtering out genes expressed in less than 5% cells.}
+\item{min.cells}{Include genes expressed in at least this many cells; recommend filtering out genes expressed in less than 5 percent cells.}
 
 \item{min.genes}{Include cells which at least this many genes are expressed; recommend filtering out cells with less than 200 genes expressed.}
 

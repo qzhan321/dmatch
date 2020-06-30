@@ -7,7 +7,7 @@
 #' @author Mengjie Chen, Qi Zhan
 #' @param sample.list A list of input datasets, each of which is a read count matrix with rows as genes and columns as cells.
 #' @param nPC Total number of PCs to compute and store (30 by default).
-#' @param min.cells Include genes expressed in at least this many cells; recommend filtering out genes expressed in less than 5% cells.
+#' @param min.cells Include genes expressed in at least this many cells; recommend filtering out genes expressed in less than 5 percent cells.
 #' @param min.genes Include cells which at least this many genes are expressed; recommend filtering out cells with less than 200 genes expressed.
 #' @return A list consists of: PCs; Loadings; Centers; batch.id for samples while performing SVD; Raw representing the input for SVD, which is a centered, combined, log, library-size normalized matrix; cells that are included and used for SVD; genes that are included and used for SVD.
 #' @export
