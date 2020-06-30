@@ -49,7 +49,7 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
     #           labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@metadata$batch)],
     #           key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
-                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@metadata$batch)],
+                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@Projection$batch.id.update)],
                     key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
   } else {
     png(filename, res = 400, height = 8, width = 8, unit = "in")
