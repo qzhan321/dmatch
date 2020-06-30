@@ -10,26 +10,6 @@
 #' @export
 
 
-call_shapiro.test <- function(pc.data, labels, quantile) {
-  shapiros<-NULL
-  for (j in 1:length(unique(labels))) {
-    if (length(pc.data[labels==j])<3) {
-      shapiro<-list("p.value"=NA)
-    } else {
-      mm<-pc.data[labels==j]
-      if (quantile*nrow(as.data.frame(mm)) >= 17) {
-        subx.flag <- cov.mve(as.data.frame(mm), quantile.used = round(quantile*nrow(as.data.frame(mm))))$best
-        nn<-mm[subx.flag]
-        #nn<-(nn-mean(nn))/sd(nn)
-        shapiro<-shapiro.test(nn) 
-      } else {
-        #mm<-(nn-mean(mm))/sd(mm)
-        shapiro<-shapiro.test(mm) 
-      }
-    }
-    shapiros<-c(shapiros,shapiro$p.value)
-  }
-}
 
 select_clusters<-function(object, quantile=0.95) {
   require(MASS)
@@ -93,3 +73,29 @@ select_clusters<-function(object, quantile=0.95) {
   
   return(object)  
 }
+
+
+
+
+
+call_shapiro.test <- function(pc.data, labels, quantile) {
+  shapiros<-NULL
+  for (j in 1:length(unique(labels))) {
+    if (length(pc.data[labels==j])<3) {
+      shapiro<-list("p.value"=NA)
+    } else {
+      mm<-pc.data[labels==j]
+      if (quantile*nrow(as.data.frame(mm)) >= 17) {
+        subx.flag <- cov.mve(as.data.frame(mm), quantile.used = round(quantile*nrow(as.data.frame(mm))))$best
+        nn<-mm[subx.flag]
+        #nn<-(nn-mean(nn))/sd(nn)
+        shapiro<-shapiro.test(nn) 
+      } else {
+        #mm<-(nn-mean(mm))/sd(mm)
+        shapiro<-shapiro.test(mm) 
+      }
+    }
+    shapiros<-c(shapiros,shapiro$p.value)
+  }
+}
+

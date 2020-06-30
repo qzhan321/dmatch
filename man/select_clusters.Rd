@@ -7,15 +7,15 @@
 select_clusters(object, quantile = 0.95)
 }
 \arguments{
-\item{object}{A dmatch class object}
+\item{object}{A dmatch class object.}
 
-\item{quantile}{The minimum number of the data points regarded as good points}
+\item{quantile}{The minimum number of the data points regarded as good points.}
 }
 \value{
-A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, select.clusters slot stores information for shapiro test result and numbers of cells in each cluster in each sample
+A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, select.clusters slot stores information for shapiro test result and numbers of cells in each cluster in each sample.
 }
 \description{
-Calculate the shapiro test for normality for each cluster in each sample, and return the table for the cell numbers for each cluster in each sample
+Apply the shapiro test for normality for each cluster in each sample, as well as summarize the cell numbers for each cluster in each sample. Those two will guide the selection of anchors-some shared cell clusters across the samples, which will help align the to-be-corrected sample to the reference sample.
 }
 \author{
 Mengjie Chen, Qi Zhan
