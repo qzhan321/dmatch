@@ -9,7 +9,7 @@ projection_visualization(
   filename = NULL,
   TopCellLineNumber = 5,
   cor.threshold = 0.3,
-  ShowCellNumber = 20,
+  ShowCellNumber = 10,
   dist.method = "euclidean",
   hclust.method = "ward.D"
 )

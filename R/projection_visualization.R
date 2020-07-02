@@ -13,7 +13,7 @@
 #' @param hclust.method The agglomeration method used by hclust() in the projection_visualization step for clustering data
 #' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, projection.visualization slot stores information for the weight matrix between cells in the samples and primary cell lines in the reference with enforeced sparsity, and a heat map.
 #' @export
-projection_visualization <- function(object, filename = NULL, TopCellLineNumber = 5, cor.threshold = 0.3, ShowCellNumber = 20, dist.method="euclidean", hclust.method="ward.D"){
+projection_visualization <- function(object, filename = NULL, TopCellLineNumber = 5, cor.threshold = 0.3, ShowCellNumber = 10, dist.method="euclidean", hclust.method="ward.D"){
   
   Projected <- object@Projection$cor.mat
   ReferenceNames <- object@Projection$ReferenceNames
@@ -54,15 +54,11 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
                  "pink", "salmon", "limegreen", "chocolate", "maroon", "purple", "blue", "yellow", "red",
                  "brown", '#FFAAD4', '#00CC00', '#66B2FF', '#B266FF', '#FFD4AA', '#AAFFD4', '#CC0000', "#B266CC")
   if (is.null(filename)) {
-    dist.method<-dist.method
-    hclust.method<-hclust.method
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
                     labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(batch.id.Proj.Vis)],
                     key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
   } else {
     png(filename, res = 400, height = 8, width = 8, unit = "in")
-    dist.method<-dist.method
-    hclust.method<-hclust.method
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
                     labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(batch.id.Proj.Vis)],
                     key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
