@@ -13,7 +13,7 @@
 #' @param hclust.method The agglomeration method used by hclust() in the projection_visualization step for clustering data
 #' @return A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, projection.visualization slot stores information for the weight matrix between cells in the samples and primary cell lines in the reference with enforeced sparsity, and a heat map.
 #' @export
-projection_visualization <- function(object, filename = NULL, TopCellLineNumber = 5, cor.threshold = 0.6, ShowCellNumber = 20, dist.method="euclidean", hclust.method="ward.D"){
+projection_visualization <- function(object, filename = NULL, TopCellLineNumber = 5, cor.threshold = 0.3, ShowCellNumber = 20, dist.method="euclidean", hclust.method="ward.D"){
   
   Projected <- object@Projection$cor.mat
   ReferenceNames <- object@Projection$ReferenceNames

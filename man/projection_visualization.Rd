@@ -8,7 +8,7 @@ projection_visualization(
   object,
   filename = NULL,
   TopCellLineNumber = 5,
-  cor.threshold = 0.6,
+  cor.threshold = 0.3,
   ShowCellNumber = 20,
   dist.method = "euclidean",
   hclust.method = "ward.D"
@@ -33,7 +33,7 @@ projection_visualization(
 A dmatch class object which have slots storing raw.data, batch.id, PCA, and more information. Specifically, projection.visualization slot stores information for the weight matrix between cells in the samples and primary cell lines in the reference with enforeced sparsity, and a heat map.
 }
 \description{
-Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top 5 (default) primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated. Our method does not work well with those datasets.
+Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top several primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated and those cells will be removed from visualization. If the overall correlations are very low, our method does not work well with those datasets.
 }
 \author{
 Mengjie Chen, Qi Zhan
