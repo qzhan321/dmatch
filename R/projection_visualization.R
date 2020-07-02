@@ -1,6 +1,6 @@
 #' projection_visualization
 #'
-#' Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top 5 (default) primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated. Our method does not work well with those datasets.
+#' Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top several primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated and those cells will be removed from visualization. If the overall correlations are very low, our method does not work well with those datasets.
 #'
 #'
 #' @author Mengjie Chen, Qi Zhan
@@ -31,7 +31,7 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   })
   
   #check if any cell in the dataset is lowly correlated with the TopCellLineNumber
-  temp <- apply(weights.mat, 2, function(x) any(x < cor.threshold)) 
+  temp <- apply(TopCellLineNumber.cor, 2, function(x) any(x < cor.threshold)) 
   if (any(temp)) {
     num <- sum(temp)
     cat(paste("The correlation between some cells in the data and some TopCellLine is low. Remove", num, "cells...\n"))
