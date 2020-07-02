@@ -14,19 +14,21 @@
 
 run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL,
                                 Nclust = NULL, steps = 20, gra_steps = 10, NCell = 100){
-  
   PCA<-object@PCA
   batch.id<-object@batch.id
   batch.id.forPC<-PCA$batch.id.forPC
-  batch.id.update<-object@Projection$batch.id.update
-  batch.id.update1<-batch.id.update[batch.id.update==batch.id[1]]
-  batch.id.update2<-batch.id.update[batch.id.update==batch.id[2]]
+  FullData1 <- PCA$PCs[batch.id.forPC == batch.id[1],]
+  FullData2 <- PCA$PCs[batch.id.forPC == batch.id[2],]
   
-  Data1 <- PCA$PCs[names(batch.id.update1),]
-  Data2 <- PCA$PCs[names(batch.id.update2),]
+  batch.id.use<-object@cut_groups$batch.id.cut_groups
+  batch.id.use1<-batch.id.use[batch.id.use==batch.id[1]]
+  batch.id.use2<-batch.id.use[batch.id.use==batch.id[2]]
   
-  Labels1 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[1]]
-  Labels2 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[2]]
+  Data1 <- PCA$PCs[names(batch.id.use1),]
+  Data2 <- PCA$PCs[names(batch.id.use2),]
+  
+  Labels1 <- object@cut_groups$CellType[object@cut_groups$batch.id.cut_groups==batch.id[1]]
+  Labels2 <- object@cut_groups$CellType[object@cut_groups$batch.id.cut_groups==batch.id[2]]
   
   require(MASS)
   if(is.null(selected)){
@@ -61,13 +63,13 @@ run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL
   all.corrected <- NULL
   for(j in 1:num){
     inter <- (2*j-1):(2*j)
-    corrected_list <- run_alignment_robust_given_labels(Data1[, inter], Data2[, inter], Labels1, Labels2, SharedType,
+    corrected_list <- run_alignment_robust_given_labels(FullData1[, inter], Data1[, inter], Data2[, inter], Labels1, Labels2, SharedType,
                                                         quantile = quantile, steps = steps, gra_steps = gra_steps)
     all.corrected <- cbind(all.corrected, corrected_list$Corrected)
   }
   
   object@run_alignment_by_2D.results <- list(RefTypes = SharedType, Original = Data1, 
-                                             Reference = Data2, Corrected = all.corrected,
+                                             Reference = FullData2, Corrected = all.corrected,
                                              Labels1 = Labels1, Labels2 = Labels2)
   
   return(object)
@@ -81,7 +83,7 @@ run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL
 
 
 ######
-run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
+run_alignment_robust_given_labels <- function(FullData1, Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
   
   if(length(SharedType) == 1){
     X <- Data1[Labels1 == SharedType, ]
@@ -95,7 +97,7 @@ run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, Sh
     res <- run_simple_est_theta_coordinate_descent_one_cluster_cpp(X, x1, steps, gra_steps)
     estA <- res$A
     estd <- res$d
-    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+    corrected <- t(apply(FullData1%*%estA, 1, function(z){z - estd}))
   }
   
   if(length(SharedType) == 2){
@@ -117,7 +119,7 @@ run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, Sh
     res <- run_simple_est_theta_coordinate_descent_cpp(X, Y, x1, y1, steps, gra_steps)
     estA <- res$A
     estd <- res$d
-    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+    corrected <- t(apply(FullData1%*%estA, 1, function(z){z - estd}))
   }
   
   if(length(SharedType) >= 3){
@@ -145,7 +147,7 @@ run_alignment_robust_given_labels <- function(Data1, Data2, Labels1, Labels2, Sh
     res <- run_simple_est_theta_coordinate_descent_three_cluster_cpp(X, Y, Z, x1, y1, z1, steps, gra_steps)
     estA <- res$A
     estd <- res$d
-    corrected <- t(apply(Data1%*%estA, 1, function(z){z - estd}))
+    corrected <- t(apply(FullData1%*%estA, 1, function(z){z - estd}))
     
   }
   

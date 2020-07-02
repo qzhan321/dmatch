@@ -25,13 +25,22 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
     x
   })
   
+  TopCellLineNumber.cor <-apply(Projected, 1, function(x){
+    xx <- x[order(x, decreasing=T)[1:TopCellLineNumber]]
+    xx
+  })
+  
   #check if any cell in the dataset is lowly correlated with the TopCellLineNumber
   temp <- apply(weights.mat, 2, function(x) any(x < cor.threshold)) 
   if (any(temp)) {
-    cat(paste("The correlation between some cells in the data and some TopCellLine is low. Remove those cells...\n"))
+    num <- sum(temp)
+    cat(paste("The correlation between some cells in the data and some TopCellLine is low. Remove", num, "cells...\n"))
     weights.mat <- weights.mat[, !temp]
   }
   
+  batch.id.Proj.To.Ref <- object@Projection$batch.id.Proj.To.Ref
+  batch.id.Proj.Vis <- batch.id.Proj.To.Ref[!temp]
+    
   flag <- apply(weights.mat, 1, function(x){
     length(x[x!=0]) >= ShowCellNumber
   })
@@ -62,8 +71,8 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   
   bbb = kkk[flag, ]
   rownames(bbb) = ReferenceNames[flag]
-  colnames(bbb) = SampleNames
-  object@Projection.visualization<-list("Weight.max" = bbb, "ProjectionHeatmap" = aa, "cutoffs" = cutoffs)
+  colnames(bbb) = SampleNames[!temp]
+  object@Projection.visualization<-list("Weight.max" = bbb, "ProjectionHeatmap" = aa, "batch.id.Proj.Vis" = batch.id.Proj.Vis, "TopCellLineNumber.cor" = TopCellLineNumber.cor)
   
   return(object)
 }

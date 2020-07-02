@@ -49,7 +49,7 @@ projection_to_reference_panel <- function(object, Reference, CorMethod = "pearso
   rownames(cor.mat) <- SampleNames 
   colnames(cor.mat) <- ReferenceNames
 
-  object@Projection <- list("cor.mat"=cor.mat, "ReferenceNames"=ReferenceNames, "SampleNames"=SampleNames, "batch.id.update"=batch.id.update)
+  object@Projection <- list("cor.mat"=cor.mat, "ReferenceNames"=ReferenceNames, "SampleNames"=SampleNames, "batch.id.Proj.To.Ref"=batch.id.update)
   return(object)
 }
 

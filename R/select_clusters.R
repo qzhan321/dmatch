@@ -16,15 +16,15 @@ select_clusters<-function(object, quantile=0.95) {
   PCA<-object@PCA
   batch.id<-object@batch.id
   batch.id.forPC<-PCA$batch.id.forPC
-  batch.id.update<-object@Projection$batch.id.update
-  batch.id.update1<-batch.id.update[batch.id.update==batch.id[1]]
-  batch.id.update2<-batch.id.update[batch.id.update==batch.id[2]]
+  batch.id.use<-object@cut_groups$batch.id.cut_groups
+  batch.id.use1<-batch.id.use[batch.id.use==batch.id[1]]
+  batch.id.use2<-batch.id.use[batch.id.use==batch.id[2]]
   
-  Data1 <- PCA$PCs[names(batch.id.update1),]
-  Data2 <- PCA$PCs[names(batch.id.update2),]
+  Data1 <- PCA$PCs[names(batch.id.use1),]
+  Data2 <- PCA$PCs[names(batch.id.use2),]
   
-  Labels1 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[1]]
-  Labels2 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[2]]
+  Labels1 <- object@cut_groups$CellType[object@cut_groups$batch.id.cut_groups==batch.id[1]]
+  Labels2 <- object@cut_groups$CellType[object@cut_groups$batch.id.cut_groups==batch.id[2]]
   
   shapiros1 <- apply(Data1[,1:10], 2, function(x) {call_shapiro.test(x, Labels1, quantile)})
   
