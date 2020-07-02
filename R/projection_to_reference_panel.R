@@ -16,6 +16,7 @@ projection_to_reference_panel <- function(object, Reference, CorMethod = "pearso
   gene.id <- rownames(samples)
   gene.ref <- rownames(Reference)
   common <- intersect(gene.id, gene.ref)
+  cat(paste("There are in total", length(common), "common genes for the data and the reference; using those common genes to calculate the correlations between cells in the data and reference..."))
   
   #check whether the Reference and samples subsetted by common genes produce cells whose total expression is 0. 
   #This will cause error in the following Pearson Correlation calculation step.
