@@ -31,8 +31,7 @@ R CMD BATCH ExamplePipeline.R
 All the images and final corrected data will be generated in the current working directory. 
 
 ### Contact us
-If you have any enquires, especially about performing dmatch integration on your data, please contact
-**Qi Zhan** (UChicago) qizhan@uchicago.edu
+If you have any enquires, especially about performing dmatch integration on your data, please create an issue at https://github.com/qzhan321/dmatch/issues. 
 
 
 

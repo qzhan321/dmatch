@@ -42,7 +42,8 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   batch.id.Proj.Vis <- batch.id.Proj.To.Ref[!temp]
     
   flag <- apply(weights.mat, 1, function(x){
-    length(x[x!=0]) >= ShowCellNumber
+    #length(x[x!=0]) >= ShowCellNumber
+    length(x[x > 0]) >= ShowCellNumber
   })
   
   kkk <- as.matrix(weights.mat)
@@ -56,14 +57,14 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
     dist.method<-dist.method
     hclust.method<-hclust.method
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
-                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@Projection$batch.id.update)],
+                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(batch.id.Proj.Vis)],
                     key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
   } else {
     png(filename, res = 400, height = 8, width = 8, unit = "in")
     dist.method<-dist.method
     hclust.method<-hclust.method
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
-                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@Projection$batch.id.update)],
+                    labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(batch.id.Proj.Vis)],
                     key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
     dev.off()
     # bb <- rev(aa$colInd)
