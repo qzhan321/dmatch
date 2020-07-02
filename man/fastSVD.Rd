@@ -4,30 +4,18 @@
 \alias{fastSVD}
 \title{fastSVD}
 \usage{
-fastSVD(
-  samples.list,
-  nPC = 30,
-  min.cells = NULL,
-  min.genes = NULL,
-  LogNormalize = T
-)
+fastSVD(samples.list, nPC = 30)
 }
 \arguments{
+\item{samples.list}{A list of input datasets preprocessed by Seurat.}
+
 \item{nPC}{Total number of PCs to compute and store (30 by default).}
-
-\item{min.cells}{Include genes expressed in at least this many cells; recommend filtering out genes expressed in less than 5 percent cells.}
-
-\item{min.genes}{Include cells which at least this many genes are expressed; recommend filtering out cells with less than 200 genes expressed.}
-
-\item{LogNormalize}{Whether to perform LogNormalize before running SVD.}
-
-\item{sample.list}{A list of input datasets, each of which is a read count matrix with rows as genes and columns as cells.}
 }
 \value{
-A list consists of: PCs; Loadings; Centers; batch.id for samples while performing SVD; Raw representing the input for SVD, which is a centered, combined, log, library-size normalized matrix; cells that are included and used for SVD; genes that are included and used for SVD.
+A list consists of: PCs; Loadings; Centers (centers of samples before SVD); batch.id.forPC (batch id of cells in the samples for SVD); Raw representing the input for SVD; cells are the cell names for cells that are included and used for SVD; genes are the gene names for genes that are included and used for SVD.
 }
 \description{
-Perform SVD. The input datasets can be the raw read count matrices; set the min.cells and min.genes to filter out based on any user-defined criteria; also set the LogNormalize to be TRUE to perform global-scaling normalization method “LogNormalize”. Alternaticely, the input datasets can be the already preprocessed (filtering) and nomalized ones from other packages; set min.genes and min.cells to be NULL and Lognormalize to be FALSE.
+Perform SVD. The input datasets are the already preprocessed (filtering) and global-scale-nomalized datasets from Seurat.
 }
 \author{
 Mengjie Chen, Qi Zhan

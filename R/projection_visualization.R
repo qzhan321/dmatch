@@ -19,17 +19,18 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   ReferenceNames <- object@Projection$ReferenceNames
   SampleNames <- object@Projection$SampleNames
   
-  cutoffs <- c()
   weights.mat <- apply(Projected, 1, function(x){
-    y <- x
     cutoff <- x[order(x, decreasing=T)[TopCellLineNumber]]
-    if (cutoff < cor.threshold) {
-      stop(paste("The correlation between some cells in the data and the last TopCellLine is low which will result in an unrealible identification of clusters in the data. Recomend to use less TopCellLines."))
-    }
-    cutoffs <- c(cutoffs, cutoff)
-    y[which(x<cutoff)] <- 0
-    y
+    x[which(x<cutoff)] <- 0
+    x
   })
+  
+  #check if any cell in the dataset is lowly correlated with the TopCellLineNumber
+  temp <- apply(weights.mat, 2, function(x) any(x < cor.threshold)) 
+  if (any(temp)) {
+    cat(paste("The correlation between some cells in the data and some TopCellLine is low. Remove those cells...\n"))
+    weights.mat <- weights.mat[, !temp]
+  }
   
   flag <- apply(weights.mat, 1, function(x){
     length(x[x!=0]) >= ShowCellNumber
@@ -45,19 +46,16 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   if (is.null(filename)) {
     dist.method<-dist.method
     hclust.method<-hclust.method
-    # heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
-    #           labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@metadata$batch)],
-    #           key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
                     labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@Projection$batch.id.update)],
-                    key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
+                    key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
   } else {
     png(filename, res = 400, height = 8, width = 8, unit = "in")
     dist.method<-dist.method
     hclust.method<-hclust.method
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
                     labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(object@Projection$batch.id.update)],
-                    key = F, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
+                    key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
     dev.off()
     # bb <- rev(aa$colInd)
   }

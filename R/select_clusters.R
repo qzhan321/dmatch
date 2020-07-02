@@ -26,21 +26,12 @@ select_clusters<-function(object, quantile=0.95) {
   Labels1 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[1]]
   Labels2 <- object@cut_groups$CellType[object@Projection$batch.id.update==batch.id[2]]
   
-  #Shapiro-Wilk test
-  # for (k in 1:10) {
-  #   Data1_PC<-Data1[,k]
-  #   shapiros1 <- call_shapiro.test(Data1_PC, Labels1, quantile)
-  # }
   shapiros1 <- apply(Data1[,1:10], 2, function(x) {call_shapiro.test(x, Labels1, quantile)})
   
   rows<-length(unique(Labels1))
   pvalue<-matrix(shapiros1, nrow = rows, ncol=10, byrow = F)
   rownames(pvalue) <- paste0("cluster", seq_len(rows))
   colnames(pvalue) <- paste0("PC", seq_len(10))
-  # a<-as.data.frame(table(Labels1))
-  # colnames(a)<-c("Labels","number_of_cells")
-  # rownames(a)<-rownames(pvalue)
-  # pvalue<-cbind(a,pvalue)
   
   mean_shapiro1<-apply(pvalue, 1, function(x) sum(-log10(x))/10)
   
@@ -50,10 +41,6 @@ select_clusters<-function(object, quantile=0.95) {
   pvalue<-matrix(shapiros2, nrow = rows, ncol=10, byrow = F)
   rownames(pvalue) <- paste0("cluster", seq_len(rows))
   colnames(pvalue) <- paste0("PC", seq_len(10))
-  # a<-as.data.frame(table(Labels2))
-  # colnames(a)<-c("Labels","number_of_cells")
-  # rownames(a)<-rownames(pvalue)
-  # pvalue<-cbind(a,pvalue)
   
   mean_shapiro2<-apply(pvalue, 1, function(x) sum(-log10(x))/10)
   
