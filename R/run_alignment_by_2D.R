@@ -68,8 +68,9 @@ run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL
     all.corrected <- cbind(all.corrected, corrected_list$Corrected)
   }
   
-  object@run_alignment_by_2D.results <- list(RefTypes = SharedType, Original = Data1, 
+  object@run_alignment_by_2D.results <- list(RefTypes = SharedType, Original = FullData1, 
                                              Reference = FullData2, Corrected = all.corrected,
+                                             OriginalAnchors = Data1, ReferenceAnchors = Data2,
                                              Labels1 = Labels1, Labels2 = Labels2)
   
   return(object)
@@ -151,9 +152,9 @@ run_alignment_robust_given_labels <- function(FullData1, Data1, Data2, Labels1, 
     
   }
   
-  res <- list(RefTypes = SharedType, Target = Data2,
+  res <- list(RefTypes = SharedType, Target = FullData2,
               Labels1 = Labels1, Labels2 = Labels2,
-              Orignial = Data1, Corrected = corrected,
+              Orignial = FullData1, Corrected = corrected,
               estA = estA, estd = estd)
   
   return(res)
