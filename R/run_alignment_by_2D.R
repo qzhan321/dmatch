@@ -63,7 +63,7 @@ run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL
   all.corrected <- NULL
   for(j in 1:num){
     inter <- (2*j-1):(2*j)
-    corrected_list <- run_alignment_robust_given_labels(FullData1[, inter], Data1[, inter], Data2[, inter], Labels1, Labels2, SharedType,
+    corrected_list <- run_alignment_robust_given_labels(FullData1[, inter], FullData2[, inter], Data1[, inter], Data2[, inter], Labels1, Labels2, SharedType,
                                                         quantile = quantile, steps = steps, gra_steps = gra_steps)
     all.corrected <- cbind(all.corrected, corrected_list$Corrected)
   }
@@ -84,7 +84,7 @@ run_alignment_by_2D <- function(object, quantile = 0.95, K = 30, selected = NULL
 
 
 ######
-run_alignment_robust_given_labels <- function(FullData1, Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
+run_alignment_robust_given_labels <- function(FullData1, FullData2, Data1, Data2, Labels1, Labels2, SharedType, quantile = 0.95, steps = 20, gra_steps = 10){
   
   if(length(SharedType) == 1){
     X <- Data1[Labels1 == SharedType, ]
