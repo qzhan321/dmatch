@@ -73,7 +73,7 @@
       <h1 data-toc-skip>An introduction to the dmatch package</h1>
                         <h4 class="author">Qi Zhan</h4>
             
-            <h4 class="date">29 Jun 2020</h4>
+            <h4 class="date">10 Jul 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/qzhan321/dmatch/blob/master/vignettes/dmatch.Rmd"><code>vignettes/dmatch.Rmd</code></a></small>
       <div class="hidden name"><code>dmatch.Rmd</code></div>
@@ -136,7 +136,7 @@
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co">##there are three major cell types in the visualization plot of the projection result </span>
 <span class="no">samples</span><span class="kw">&lt;-</span><span class="fu"><a href="../reference/cut_groups.html">cut_groups</a></span>(<span class="no">samples</span>,<span class="kw">K</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"ward.D"</span>)
 <span class="co">##select clusters which have enough cells and which have low transformed shapiro pvalue; recomended quantile includes: 0.90,0.95,0.98</span>
-<span class="no">samples</span><span class="kw">&lt;-</span><span class="fu">select_clusters</span>(<span class="no">samples</span>, <span class="kw">quantile</span> <span class="kw">=</span> <span class="fl">0.98</span>)
+<span class="no">samples</span><span class="kw">&lt;-</span><span class="fu"><a href="../reference/select_clusters.html">select_clusters</a></span>(<span class="no">samples</span>, <span class="kw">quantile</span> <span class="kw">=</span> <span class="fl">0.98</span>)
 <span class="co">##the results will be stored in select.clusters slot</span></pre></body></html></div>
 <p>To inspect the cell numbers of each cluster and the result of shapiro test:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">samples</span>@<span class="kw">select.clusters</span>$<span class="no">cells.num</span>

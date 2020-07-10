@@ -40,6 +40,7 @@
 
 
 <meta property="og:title" content="fastSVD — fastSVD" />
+<meta property="og:description" content="Perform SVD. The input datasets are the already preprocessed (filtering) and global-scale-nomalized datasets from Seurat." />
 
 
 
@@ -116,31 +117,27 @@
     </div>
 
     <div class="ref-description">
+    <p>Perform SVD. The input datasets are the already preprocessed (filtering) and global-scale-nomalized datasets from Seurat.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fastSVD</span>(
-  <span class='no'>samples.list</span>,
-  <span class='kw'>nPC</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='kw'>min.cells</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min.genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>LogNormalize</span> <span class='kw'>=</span> <span class='no'>T</span>
-)</pre>
+    <pre class="usage"><span class='fu'>fastSVD</span>(<span class='no'>samples.list</span>, <span class='kw'>nPC</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>samples.list</th>
+      <td><p>A list of input datasets preprocessed by Seurat.</p></td>
+    </tr>
+    <tr>
       <th>nPC</th>
       <td><p>Total number of PCs to compute and store (30 by default).</p></td>
     </tr>
-    <tr>
-      <th>min.cells</th>
-      <td><p>Include genes expressed in at least this many cells; recommend filtering out genes expressed in less than 5<!-- % cells.} --></p>
-<p>min.genesInclude cells which at least this many genes are expressed; recommend filtering out cells with less than 200 genes expressed.</p>
-<p>sample.listA list of input datasets, each of which is a read count matrix with rows as genes and columns as cells.</p></td>
-    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list consists of: PCs; Loadings; Centers (centers of samples before SVD); batch.id.forPC (batch id of cells in the samples for SVD); Raw representing the input for SVD; cells are the cell names for cells that are included and used for SVD; genes are the gene names for genes that are included and used for SVD.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

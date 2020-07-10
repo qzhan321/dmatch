@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="projection_visualization — projection_visualization" />
-<meta property="og:description" content="Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top 5 (default) primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated. Our method does not work well with those datasets." />
+<meta property="og:description" content="Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top several primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated and those cells will be removed from visualization. If the overall correlations are very low, our method does not work well with those datasets." />
 
 
 
@@ -117,15 +117,15 @@
     </div>
 
     <div class="ref-description">
-    <p>Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top 5 (default) primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated. Our method does not work well with those datasets.</p>
+    <p>Visualize the results of projection step and inspect the major cell types in the samples and the number of shared cell types between the samples. Sparsity is introduced in the correlation matrix by only retaining the top several primary cell lines (all others are set to zero). A minimum threshold for the correlations is provided via cor.threshold parameter. If the overall correlation between cells in the samples and the last TopCellLine in the reference panel is less than the threshold, a warning will be generated and those cells will be removed from visualization. If the overall correlations are very low, our method does not work well with those datasets.</p>
     </div>
 
     <pre class="usage"><span class='fu'>projection_visualization</span>(
   <span class='no'>object</span>,
   <span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>TopCellLineNumber</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>cor.threshold</span> <span class='kw'>=</span> <span class='fl'>0.6</span>,
-  <span class='kw'>ShowCellNumber</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>cor.threshold</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>ShowCellNumber</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>dist.method</span> <span class='kw'>=</span> <span class='st'>"euclidean"</span>,
   <span class='kw'>hclust.method</span> <span class='kw'>=</span> <span class='st'>"ward.D"</span>
 )</pre>
