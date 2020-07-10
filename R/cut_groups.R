@@ -16,6 +16,6 @@ cut_groups <- function(object, K, method="ward.D"){
   ee <- hclust(dd, method)
   groups <- cutree(ee, k=K)
   #cutoffs <- object@Projection.visualization$cutoffs
-  object@cut_groups<-list("CellType"=groups, "batch.id.cut_groups"=object@Projection$batch.id.Proj.Vis)
+  object@cut_groups<-list("CellType"=groups, "batch.id.cut_groups"=object@Projection.visualization$batch.id.Proj.Vis)
   return(object)
 }

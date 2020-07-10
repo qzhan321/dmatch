@@ -31,12 +31,13 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   })
   
   #check if any cell in the dataset is lowly correlated with the TopCellLineNumber
-  temp <- apply(TopCellLineNumber.cor, 2, function(x) any(x < cor.threshold)) 
+  temp <- apply(TopCellLineNumber.cor, 2, function(x) {sum(x < cor.threshold) >= 1/2 * TopCellLineNumber}) 
   if (any(temp)) {
     num <- sum(temp)
     cat(paste("The correlation between some cells in the data and some TopCellLine is low. Remove", num, "cells...\n"))
     weights.mat <- weights.mat[, !temp]
   }
+  TopCellLineNumber.cor <- TopCellLineNumber.cor[,!temp]
   
   batch.id.Proj.To.Ref <- object@Projection$batch.id.Proj.To.Ref
   batch.id.Proj.Vis <- batch.id.Proj.To.Ref[!temp]
@@ -56,12 +57,12 @@ projection_visualization <- function(object, filename = NULL, TopCellLineNumber 
   if (is.null(filename)) {
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
                     labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(batch.id.Proj.Vis)],
-                    key = TRUE, margins = c(2, 4), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
+                    key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
   } else {
     png(filename, res = 400, height = 8, width = 8, unit = "in")
     aa <- heatmap.2(kkk[flag, ], trace = "none", col = palette.gr.marray2, symbreaks = F,
                     labRow = ReferenceNames[flag], labCol = NA,  ColSideColors = colorlist[as.numeric(batch.id.Proj.Vis)],
-                    key = TRUE, margins = c(2, 4), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
+                    key = TRUE, margins = c(8, 15), distfun=function(x) dist(x,method = dist.method), hclustfun=function(x) hclust(x,method= hclust.method))
     dev.off()
     # bb <- rev(aa$colInd)
   }
