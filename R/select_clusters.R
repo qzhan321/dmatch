@@ -29,7 +29,7 @@ select_clusters<-function(object, quantile=0.95) {
   shapiros1 <- apply(Data1[,1:10], 2, function(x) {call_shapiro.test(x, Labels1, quantile)})
   
   rows<-length(unique(Labels1))
-  pvalue<-matrix(shapiros1, nrow = rows, ncol=10, byrow = F)
+  pvalue<-shapiros1
   rownames(pvalue) <- paste0("cluster", seq_len(rows))
   colnames(pvalue) <- paste0("PC", seq_len(10))
   
@@ -38,7 +38,7 @@ select_clusters<-function(object, quantile=0.95) {
   shapiros2 <- apply(Data2[,1:10], 2, function(x) {call_shapiro.test(x, Labels2, quantile)})
     
   rows<-length(unique(Labels2))
-  pvalue<-matrix(shapiros2, nrow = rows, ncol=10, byrow = F)
+  pvalue<-shapiros2
   rownames(pvalue) <- paste0("cluster", seq_len(rows))
   colnames(pvalue) <- paste0("PC", seq_len(10))
   
@@ -66,6 +66,7 @@ select_clusters<-function(object, quantile=0.95) {
 
 
 call_shapiro.test <- function(pc.data, labels, quantile) {
+  pvalues <- rep(NA, length(unique(labels)))
   for (j in 1:length(unique(labels))) {
     if (length(pc.data[labels==j])<3) {
       shapiro<-list("p.value"=NA)
@@ -81,7 +82,8 @@ call_shapiro.test <- function(pc.data, labels, quantile) {
         shapiro<-shapiro.test(mm) 
       }
     }
-    return(shapiro$p.value)
+    pvalues[j] <- shapiro$p.value
   }
+  return(pvalues)
 }
 
