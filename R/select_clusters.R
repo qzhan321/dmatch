@@ -13,6 +13,7 @@
 
 select_clusters<-function(object, quantile=0.95) {
   require(MASS)
+  require(dplyr)
   PCA<-object@PCA
   batch.id<-object@batch.id
   batch.id.forPC<-PCA$batch.id.forPC
@@ -30,36 +31,43 @@ select_clusters<-function(object, quantile=0.95) {
   
   rows<-length(unique(Labels1))
   pvalue<-shapiros1
-  rownames(pvalue) <- paste0("cluster", seq_len(rows))
+  rownames(pvalue) <- paste0("cluster", unique(Labels1))
   colnames(pvalue) <- paste0("PC", seq_len(10))
   
   mean_shapiro1<-apply(pvalue, 1, function(x) sum(-log10(x))/10)
   
   shapiros2 <- apply(Data2[,1:10], 2, function(x) {call_shapiro.test(x, Labels2, quantile)})
-    
+  
   rows<-length(unique(Labels2))
   pvalue<-shapiros2
-  rownames(pvalue) <- paste0("cluster", seq_len(rows))
+  rownames(pvalue) <- paste0("cluster", unique(Labels2))
   colnames(pvalue) <- paste0("PC", seq_len(10))
   
   mean_shapiro2<-apply(pvalue, 1, function(x) sum(-log10(x))/10)
   
-  shapiro.test.pvalue<-matrix(c(mean_shapiro1,mean_shapiro2), nrow = length(mean_shapiro1), ncol = 2, byrow = F)
-  rownames(shapiro.test.pvalue)<-paste("cell_cluster", seq_along(1:nrow(shapiro.test.pvalue)), sep="_")
+  mean_shapiro1 <- as.data.frame(mean_shapiro1, ncol=1)
+  mean_shapiro1 <- cbind(rownames(mean_shapiro1), mean_shapiro1)
+  colnames(mean_shapiro1)[1] <- "Labels"
+  mean_shapiro2 <- as.data.frame(mean_shapiro2, ncol=1)
+  mean_shapiro2 <- cbind(rownames(mean_shapiro2), mean_shapiro2)
+  colnames(mean_shapiro2)[1] <- "Labels"
+  
+  shapiro.test.pvalue<-full_join(mean_shapiro1, mean_shapiro2, by = "Labels")
+  shapiro.test.pvalue <- shapiro.test.pvalue[,-1]
+  rownames(shapiro.test.pvalue)<-paste("cluster", seq_along(1:nrow(shapiro.test.pvalue)), sep="_")
   colnames(shapiro.test.pvalue)<-paste("batch", batch.id[seq_along(batch.id)], sep = "_")
   
   xx<-as.data.frame(table(Labels1))
-  xx<-xx[,-1, drop=F]
   yy<-as.data.frame(table(Labels2))
-  yy<-yy[,-1, drop=F]
-  cells.num<-cbind(xx,yy)
-  rownames(cells.num)<-paste("cell_cluster", seq_along(1:nrow(cells.num)), sep="_")
+  cells.num <- full_join(xx, yy, by = c("Labels1" = "Labels2"))
+  cells.num <- cells.num[,-1]
+  rownames(cells.num)<-paste("cluster", seq_along(1:nrow(cells.num)), sep="_")
   colnames(cells.num)<-paste("batch", batch.id[seq_along(batch.id)], sep = "_")
-  
   object@select.clusters<-list("shapiro.test.pvalue"=shapiro.test.pvalue, "cells.num"=cells.num)
   
   return(object)  
 }
+
 
 
 
